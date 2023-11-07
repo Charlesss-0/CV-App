@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+// Renders a section including header, description and the option to add more content
 export function Section({ header, description, add }) {
   return (
     <>
@@ -10,14 +11,17 @@ export function Section({ header, description, add }) {
   )
 }
 
+// Renders header for a section content
 export function Header({ text }) {
   return <h1 className="text-[1.6rem] mt-[2rem] font-semibold">{text}</h1>
 }
 
+// Renders description for a section content
 export function Desc({ text }) {
   return <p className="mb-[1.5rem] text-[#5a5a5a]">{text}</p>
 }
 
+// Renders add button for a section content
 export function Add({ text }) {
   return (
     <p
@@ -39,6 +43,7 @@ export function Add({ text }) {
   )
 }
 
+// Renders a list of skills and the option to add more skills
 export function SkillsList() {
   const skills = [
     'Adaptability',
@@ -65,7 +70,8 @@ export function SkillsList() {
           <li
             key={skill}
             className="
-                bg-[#afafaf5f] 
+                bg-[#F5F7F8] 
+                border-solid border-[1px] border-[#afafaf]
                 p-[0.5rem] 
                 px-[1rem] 
                 rounded-lg 
@@ -87,6 +93,7 @@ export function SkillsList() {
   )
 }
 
+// Renders the custom section where you can choose if you want to add another section to the cv
 export function CustomSec() {
   const custom = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
@@ -100,9 +107,9 @@ export function CustomSec() {
 
   return (
     <ul className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
-      {custom.map((sec) => (
+      {custom.map((sec, index) => (
         <li
-          key={sec}
+          key={index}
           className="
               flex 
               items-center 

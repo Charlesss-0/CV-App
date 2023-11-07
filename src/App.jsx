@@ -8,30 +8,29 @@ import {
   SkillsList,
   CustomSec
 } from './components/utils'
-import { Blank } from './components/blank'
+import { CvPage } from './components/doc'
 
 export default function App() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [jobTitle, setJobTitle] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [country, setCountry] = useState('')
+  const [city, setCity] = useState('')
   const fullName = `${firstName} ${lastName}`
-  const emailPhone = `${email} ${phone}`
+  const storedJobTitle = jobTitle
+  const storedEmail = email
+  const storedPhone = phone
+  const cityCountry =
+    city !== '' && country !== ''
+      ? `${city}, ${country}`
+      : city !== '' || country !== ''
+      ? `${city} ${country}`
+      : ''
 
-  const handleFirstName = (e) => {
-    setFirstName(e.target.value)
-  }
-
-  const handleLastName = (e) => {
-    setLastName(e.target.value)
-  }
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePhone = (e) => {
-    setPhone(e.target.value)
+  const handleEvent = (setEvent, e) => {
+    setEvent(e.target.value)
   }
 
   return (
@@ -75,37 +74,70 @@ export default function App() {
             >
               <div>
                 <label>
+                  Job title <br />
+                  <input
+                    type="text"
+                    maxLength={30}
+                    onChange={(e) => handleEvent(setJobTitle, e)}
+                  />
+                </label>
+              </div>
+
+              <div>
+                <label>
                   First Name <br />
-                  <input type="text" onChange={handleFirstName} />
+                  <input
+                    type="text"
+                    maxLength={20}
+                    onChange={(e) => handleEvent(setFirstName, e)}
+                  />
                 </label>
 
                 <label>
                   Last Name <br />
-                  <input type="text" onChange={handleLastName} />
+                  <input
+                    type="text"
+                    maxLength={20}
+                    onChange={(e) => handleEvent(setLastName, e)}
+                  />
                 </label>
               </div>
 
               <div>
                 <label>
                   E-mail <br />
-                  <input type="email" onChange={handleEmail} />
+                  <input
+                    type="email"
+                    maxLength={30}
+                    onChange={(e) => handleEvent(setEmail, e)}
+                  />
                 </label>
 
                 <label>
                   Phone <br />
-                  <input type="tel" onChange={handlePhone} />
+                  <input
+                    type="tel"
+                    maxLength={15}
+                    onChange={(e) => handleEvent(setPhone, e)}
+                  />
                 </label>
               </div>
 
               <div>
                 <label>
-                  Country <br />
-                  <input type="text" />
+                  City <br />
+                  <input
+                    type="text"
+                    onChange={(e) => handleEvent(setCity, e)}
+                  />
                 </label>
 
                 <label>
-                  City <br />
-                  <input type="text" />
+                  Country <br />
+                  <input
+                    type="text"
+                    onChange={(e) => handleEvent(setCountry, e)}
+                  />
                 </label>
               </div>
             </fieldset>
@@ -168,7 +200,13 @@ export default function App() {
           </div>
         </div>
 
-        <Blank fullName={fullName} emailPhone={emailPhone} />
+        <CvPage
+          fullName={fullName}
+          jobTitle={storedJobTitle}
+          email={storedEmail}
+          phone={storedPhone}
+          cityCountry={cityCountry}
+        />
       </div>
     </>
   )
