@@ -14,14 +14,11 @@ export default function App() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [jobTitle, setJobTitle] = useState('')
+  const [profileDesc, setProfileDesc] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [country, setCountry] = useState('')
   const [city, setCity] = useState('')
-  const fullName = `${firstName} ${lastName}`
-  const storedJobTitle = jobTitle
-  const storedEmail = email
-  const storedPhone = phone
   const cityCountry =
     city !== '' && country !== ''
       ? `${city}, ${country}`
@@ -153,6 +150,8 @@ export default function App() {
 
               <textarea
                 className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939]"
+                onChange={(e) => handleEvent(setProfileDesc, e)}
+                maxLength={200}
                 placeholder="pe, science teacher passionate about his profession with more than 8 years of experience."
               />
             </fieldset>
@@ -201,10 +200,12 @@ export default function App() {
         </div>
 
         <CvPage
-          fullName={fullName}
-          jobTitle={storedJobTitle}
-          email={storedEmail}
-          phone={storedPhone}
+          firstName={firstName}
+          lastName={lastName}
+          jobTitle={jobTitle}
+          profileDescription={profileDesc}
+          email={email}
+          phone={phone}
           cityCountry={cityCountry}
         />
       </div>

@@ -107,9 +107,9 @@ export function CustomSec() {
 
   return (
     <ul className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
-      {custom.map((sec, index) => (
+      {custom.map((sec) => (
         <li
-          key={index}
+          key={sec.icon}
           className="
               flex 
               items-center 

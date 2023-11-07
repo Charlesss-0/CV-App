@@ -1,5 +1,30 @@
+import { useRef, useState } from 'react'
+
 /* eslint-disable react/prop-types */
-export function CvPage({ fullName, jobTitle, email, phone, cityCountry }) {
+export function CvPage({
+  firstName,
+  lastName,
+  jobTitle,
+  profileDescription,
+  email,
+  phone,
+  cityCountry
+}) {
+  const fileInputRef = useRef(null)
+  const [selectedFileName, setSelectedFileName] = useState(null)
+  const [imageUploaded, setImageUploaded] = useState(false)
+
+  const handleFileUpload = () => {
+    fileInputRef.current.click()
+  }
+
+  const handleFileSelected = (e) => {
+    const selectedFile = e.target.files[0]
+
+    setSelectedFileName(selectedFile)
+    setImageUploaded(true)
+  }
+
   return (
     <>
       <div className="w-full h-screen p-[5em] overflow-auto">
@@ -20,31 +45,47 @@ export function CvPage({ fullName, jobTitle, email, phone, cityCountry }) {
             >
               <div
                 className="
-                  bg-[aliceblue]
-                  w-[78%] 
-                  h-[15em] 
-                  m-auto 
-                  mt-[2.5em] 
-                  rounded-full
-                  grid
-                  place-content-center
-                  "
+                      bg-[aliceblue]
+                      w-[78%] 
+                      h-[15em] 
+                      m-auto 
+                      mt-[2.5em] 
+                      rounded-full
+                      grid
+                      place-content-center
+                      overflow-hidden
+                      "
               >
-                <i
-                  className="
-                    fi fi-rr-picture 
-                    text-[2rem] 
-                    flex 
-                    p-[1rem]
-                    rounded-full
-                    transition-all ease-in-out delay-[.05s]
-                    cursor-pointer
-                    hover:bg-[#efefefaf]
-                    hover:border
-                    hover:border-solid
-                    hover:border-[#afafaf]
-                    "
-                ></i>
+                {!imageUploaded && (
+                  <>
+                    <i
+                      onClick={handleFileUpload}
+                      className="
+                          fi fi-rr-picture 
+                          text-[2rem] 
+                          flex 
+                          p-[1rem]
+                          rounded-full
+                          transition-all ease-in-out delay-[.05s]
+                          cursor-pointer
+                          hover:bg-[#efefefaf]
+                          hover:border
+                          hover:border-solid
+                          hover:border-[#afafaf]
+                          "
+                    ></i>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={handleFileSelected}
+                    />
+                  </>
+                )}
+
+                {selectedFileName && (
+                  <img src={URL.createObjectURL(selectedFileName)} />
+                )}
               </div>
 
               <h1 className="mt-[1.5em] m-[0.5em] mb-0 text-[1.5rem] font-semibold">
@@ -64,19 +105,35 @@ export function CvPage({ fullName, jobTitle, email, phone, cityCountry }) {
             <div
               className="
                 m-auto 
-                w-[10em] 
+                w-[12em] 
                 p-[1rem] 
                 text-[2rem] 
                 font-semibold 
                 absolute 
-                right-[3em] 
+                right-[1em] 
                 top-[1.75em]
                 "
             >
-              <h1>{fullName}</h1>
+              <div className="flex flex-wrap gap-x-[0.5rem]">
+                <h1>{firstName}</h1>
+                <h1>{lastName}</h1>
+              </div>
+
               <h2 className="text-[1.5rem] font-normal text-[#5f5f5f]">
                 {jobTitle}
               </h2>
+
+              <h3
+                className="
+                  text-[1rem] 
+                  font-normal 
+                  text-[#5f5f5f] 
+                  mt-[1rem] 
+                  w-full
+                  "
+              >
+                {profileDescription}
+              </h3>
             </div>
           </div>
         </div>
