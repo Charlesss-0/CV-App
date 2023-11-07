@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 
 // Renders a section including header, description and the option to add more content
-export function Section({ header, description, add }) {
+export function Section({ header, description }) {
   return (
     <>
       <Header text={header} />
       <Desc text={description} />
-      <Add text={add} />
     </>
   )
 }
@@ -22,9 +21,10 @@ export function Desc({ text }) {
 }
 
 // Renders add button for a section content
-export function Add({ text }) {
+export function Add({ text, onClick }) {
   return (
     <p
+      onClick={onClick}
       className="
           flex 
           items-center 
@@ -131,5 +131,51 @@ export function CustomSec() {
         </li>
       ))}
     </ul>
+  )
+}
+
+export function Field({ title, type, length, onChange }) {
+  return (
+    <label>
+      {title} <br />
+      <input type={type} maxLength={length} onChange={onChange} />
+    </label>
+  )
+}
+
+export function AddNewForm() {
+  return (
+    <div className="border-solid border-2 border-black p-[0.5rem]">
+      <h1 className="border-solid border-2 border-black p-[1rem] mb-[0.5rem]">
+        Experiences
+      </h1>
+
+      <form>
+        <fieldset
+          className="
+                flex
+                flex-col
+                gap-[1rem] 
+                text-[#4f4f4f]
+                font-semibold
+                [&>div]:flex
+                [&>div]:gap-[1rem]
+                [&>div>label]:w-full 
+                [&>div>label>input]:w-full
+                [&>div>label]:flex
+                [&>div>label]:flex-col
+                [&>div>label]:gap-[0.5rem]
+                [&>div>label>input]:p-[0.8rem]
+                [&>div>label>input]:rounded-lg
+                [&>div>label>input]:text-[#393939]
+                [&>div>label>input]:font-normal
+                "
+        >
+          <div>
+            <Field title={'Job title'} type={'text'} length={30} />
+          </div>
+        </fieldset>
+      </form>
+    </div>
   )
 }

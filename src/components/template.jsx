@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { ContactInfo, Title } from './templateUtils'
 
 /* eslint-disable react/prop-types */
 export function CvPage({
@@ -28,13 +29,20 @@ export function CvPage({
   return (
     <>
       <div className="w-full h-screen p-[5em] overflow-auto">
-        <div className="bg-white w-[210mm] h-[297mm] mx-auto shadow-xl rounded-lg">
+        <div className="bg-white w-[210mm] h-[297mm] mx-auto shadow-xl rounded-lg overflow-hidden">
           <div className="relative h-full">
+            <div className="absolute left-0 w-[11em] h-full bg-[antiquewhite]">
+              <div className="absolute left-0 top-0 h-[40%] w-full bg-[#b8b89a]"></div>
+            </div>
+
             <div
               className="
+              bg-white
+              text-[#2f2f2f]
               border-solid 
               border-2 
               border-[#afafaf]
+              rounded-[5px]
               w-[20em] 
               h-[90%] 
               absolute 
@@ -88,9 +96,7 @@ export function CvPage({
                 )}
               </div>
 
-              <h1 className="mt-[1.5em] m-[0.5em] mb-0 text-[1.5rem] font-semibold">
-                Contact
-              </h1>
+              <Title text={'Contact'} />
 
               <div className="w-full p-[1rem] flex flex-col gap-1">
                 <ContactInfo type={email !== '' ? 'email' : ''} info={email} />
@@ -100,17 +106,19 @@ export function CvPage({
                   info={cityCountry}
                 />
               </div>
+
+              <Title text={'Skills'} />
             </div>
 
             <div
               className="
                 m-auto 
-                w-[12em] 
-                p-[1rem] 
+                w-[13.4em] 
+                p-[0.5rem] 
                 text-[2rem] 
                 font-semibold 
                 absolute 
-                right-[1em] 
+                right-[0.5rem] 
                 top-[1.75em]
                 "
             >
@@ -134,33 +142,12 @@ export function CvPage({
               >
                 {profileDescription}
               </h3>
+
+              <h1 className="my-[1em]">Experience</h1>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
-}
-
-function ContactInfo({ type, info }) {
-  const getIconClass = () => {
-    switch (type) {
-      case 'email':
-        return 'fi-sr-envelope'
-      case 'phone':
-        return 'fi-sr-phone-flip'
-      case 'nationality':
-        return 'fi-sr-marker'
-      default:
-        return ''
-    }
-  }
-
-  return (
-    <i
-      className={`fi ${getIconClass()} not-italic text-lg flex items-center gap-[0.5rem]`}
-    >
-      <span className="break-all text-[#5f5f5f]">{info}</span>
-    </i>
   )
 }

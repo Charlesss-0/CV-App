@@ -2,13 +2,16 @@
 import './styles/App.css'
 import { useState } from 'react'
 import {
+  Field,
   Section,
   Header,
   Desc,
   SkillsList,
-  CustomSec
-} from './components/utils'
-import { CvPage } from './components/doc'
+  CustomSec,
+  Add,
+  AddNewForm
+} from './components/appUtils'
+import { CvPage } from './components/template'
 
 export default function App() {
   const [firstName, setFirstName] = useState('')
@@ -26,8 +29,14 @@ export default function App() {
       ? `${city} ${country}`
       : ''
 
+  const [showNew, setShowNew] = useState(false)
+
   const handleEvent = (setEvent, e) => {
     setEvent(e.target.value)
+  }
+
+  const switchState = () => {
+    setShowNew(true)
   }
 
   return (
@@ -36,13 +45,14 @@ export default function App() {
         <div
           className="
             bg-[#efefef] 
-            w-[70vw] 
+            w-[80vw] 
             h-screen 
             rounded-e-[15px] 
             p-[2rem] 
             flex 
             flex-col 
             overflow-auto
+            select-none
             "
           id="cv-form-section"
         >
@@ -70,72 +80,58 @@ export default function App() {
                 "
             >
               <div>
-                <label>
-                  Job title <br />
-                  <input
-                    type="text"
-                    maxLength={30}
-                    onChange={(e) => handleEvent(setJobTitle, e)}
-                  />
-                </label>
+                <Field
+                  title={'Job title'}
+                  type={'text'}
+                  length={30}
+                  onChange={(e) => handleEvent(setJobTitle, e)}
+                />
               </div>
 
               <div>
-                <label>
-                  First Name <br />
-                  <input
-                    type="text"
-                    maxLength={20}
-                    onChange={(e) => handleEvent(setFirstName, e)}
-                  />
-                </label>
+                <Field
+                  title={'First name'}
+                  type={'text'}
+                  length={20}
+                  onChange={(e) => handleEvent(setFirstName, e)}
+                />
 
-                <label>
-                  Last Name <br />
-                  <input
-                    type="text"
-                    maxLength={20}
-                    onChange={(e) => handleEvent(setLastName, e)}
-                  />
-                </label>
+                <Field
+                  title={'Last name'}
+                  type={'text'}
+                  length={20}
+                  onChange={(e) => handleEvent(setLastName, e)}
+                />
               </div>
 
               <div>
-                <label>
-                  E-mail <br />
-                  <input
-                    type="email"
-                    maxLength={30}
-                    onChange={(e) => handleEvent(setEmail, e)}
-                  />
-                </label>
+                <Field
+                  title={'E-mail'}
+                  type={'email'}
+                  length={30}
+                  onChange={(e) => handleEvent(setEmail, e)}
+                />
 
-                <label>
-                  Phone <br />
-                  <input
-                    type="tel"
-                    maxLength={15}
-                    onChange={(e) => handleEvent(setPhone, e)}
-                  />
-                </label>
+                <Field
+                  title={'Phone'}
+                  type={'tel'}
+                  length={15}
+                  onChange={(e) => handleEvent(setPhone, e)}
+                />
               </div>
 
               <div>
-                <label>
-                  City <br />
-                  <input
-                    type="text"
-                    onChange={(e) => handleEvent(setCity, e)}
-                  />
-                </label>
+                <Field
+                  title={'City'}
+                  type={'text'}
+                  onChange={(e) => handleEvent(setCity, e)}
+                />
 
-                <label>
-                  Country <br />
-                  <input
-                    type="text"
-                    onChange={(e) => handleEvent(setCountry, e)}
-                  />
-                </label>
+                <Field
+                  title={'Country'}
+                  type={'text'}
+                  onChange={(e) => handleEvent(setCountry, e)}
+                />
               </div>
             </fieldset>
 
@@ -162,23 +158,27 @@ export default function App() {
             description={
               'Please indicate your relevant experience from the last 10 years and dates in this section. Start with the most recent position.'
             }
-            add={'Add job'}
           />
+
+          {showNew && <AddNewForm />}
+          <Add text={'Add job'} onClick={() => switchState(setShowNew)} />
 
           <Section
             header={'Training'}
             description={
               'If applicable, include your most recent academic achievements and dates here.'
             }
-            add={'Add training'}
           />
+
+          <Add text={'Add training'} />
 
           <Section
             header={'Links to social networks and websites'}
             description={`Now you can add links to the sites you want employers to see. 
               It can be a link to your portfolio, your LinkedIn profile, or your personal website.`}
-            add={'Add link'}
           />
+
+          <Add text={'Add link'} />
 
           <div>
             <Header text={'Competencies'} />
@@ -194,6 +194,12 @@ export default function App() {
 
           <div>
             <Header text={'Add Section'} />
+
+            <Desc
+              text={
+                'Add a costum section to showcase your strengths on other areas.'
+              }
+            />
 
             <CustomSec />
           </div>
