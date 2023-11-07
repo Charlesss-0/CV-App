@@ -1,3 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+input:focus,
+textarea:focus {
+  outline-color: #afafaf;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: -2px;
+}
