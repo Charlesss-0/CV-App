@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
 import './styles/App.css'
+import { useState } from 'react'
+import {
+  Section,
+  Header,
+  Desc,
+  SkillsList,
+  CustomSec
+} from './components/utils'
+import { Blank } from './components/blank'
 
 export default function App() {
   const [firstName, setFirstName] = useState('')
@@ -29,7 +37,6 @@ export default function App() {
   return (
     <>
       <div className="flex">
-        {/* FORM SECTION START */}
         <div
           className="
             bg-[#efefef] 
@@ -153,103 +160,16 @@ export default function App() {
 
             <SkillsList />
           </div>
-        </div>
-        {/* FORM SECTION END */}
 
-        <div className="w-full h-screen p-[5em] overflow-auto">
-          <div className="bg-white w-[210mm] h-[297mm] mx-auto shadow-xl rounded-lg">
-            {fullName}
-            {emailPhone}
+          <div>
+            <Header text={'Add Section'} />
+
+            <CustomSec />
           </div>
         </div>
+
+        <Blank fullName={fullName} emailPhone={emailPhone} />
       </div>
-    </>
-  )
-}
-
-function Section({ header, description, add }) {
-  return (
-    <div>
-      <Header text={header} />
-      <Desc text={description} />
-      <Add text={add} />
-    </div>
-  )
-}
-
-function Header({ text }) {
-  return <h1 className="text-[1.6rem] mt-[2rem] font-semibold">{text}</h1>
-}
-
-function Desc({ text }) {
-  return <p className="mb-[1.5rem] text-[#5a5a5a]">{text}</p>
-}
-
-function Add({ text }) {
-  return (
-    <p
-      className="
-        flex 
-        items-center 
-        gap-1 
-        text-[#0174BE] 
-        cursor-pointer 
-        hover:bg-[#afafaf55] 
-        p-[0.5rem] 
-        rounded-lg
-        transition-all ease-in-out delay-[.05s]
-        "
-    >
-      <i className="fi fi-rr-plus-small flex"></i>
-      {text}
-    </p>
-  )
-}
-
-function SkillsList() {
-  const skills = [
-    'Adaptability',
-    'Visual Design Skills',
-    'Database Management',
-    'Knowledgable in User Interface/User Experience',
-    'Javascript',
-    'React',
-    'HTML',
-    'CSS'
-  ]
-
-  return (
-    <>
-      <ul
-        className="
-          flex
-          flex-wrap
-          gap-2
-          mb-[1.5rem]
-          "
-      >
-        {skills.map((skill) => (
-          <li
-            key={skill}
-            className="
-              bg-[#afafaf5f] 
-              p-[0.5rem] 
-              px-[1rem] 
-              rounded-lg 
-              flex 
-              items-center 
-              gap-[0.5rem] 
-              cursor-pointer
-              hover:text-[#0174BE]
-              transition-all delay-[.05s] ease-in-out
-              "
-          >
-            {skill}
-            <i className="fi fi-rr-plus-small flex"></i>
-          </li>
-        ))}
-      </ul>
-      <Add text={'Add competition'} />
     </>
   )
 }
