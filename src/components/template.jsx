@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
+
 import { useRef, useState } from 'react'
 import { ContactInfo, Title } from './templateUtils'
 
-/* eslint-disable react/prop-types */
 export function CvPage({
   firstName,
   lastName,

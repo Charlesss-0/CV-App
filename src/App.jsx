@@ -29,15 +29,15 @@ export default function App() {
       : city !== '' || country !== ''
       ? `${city} ${country}`
       : ''
-
-  const [showNew, setShowNew] = useState(false)
+  const [forms, setForm] = useState([])
 
   const handleEvent = (setEvent, e) => {
     setEvent(e.target.value)
   }
 
-  const switchState = () => {
-    setShowNew(true)
+  const addForm = () => {
+    setForm([...forms, <AddNewForm key={forms.length} />])
+    console.log(forms.length)
   }
 
   return (
@@ -162,8 +162,10 @@ export default function App() {
             }
           />
 
-          {showNew && <AddNewForm />}
-          <Add text={'Add job'} onClick={() => switchState(setShowNew)} />
+          {forms.map((form, index) => (
+            <div key={index}>{form}</div>
+          ))}
+          <Add text={'Add job'} onClick={addForm} />
 
           <Section
             header={'Training'}

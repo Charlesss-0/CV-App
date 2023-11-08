@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-// Renders a section including header, description and the option to add more content
+// Section component combines a header and description for a section of content.
 export function Section({ header, description }) {
   return (
     <>
@@ -12,17 +12,17 @@ export function Section({ header, description }) {
   )
 }
 
-// Renders header for a section content
+// Header component renders the header text for a section.
 export function Header({ text }) {
   return <h1 className="text-[1.6rem] mt-[2rem] font-semibold">{text}</h1>
 }
 
-// Renders description for a section content
+// Desc component renders the description for a section.
 export function Desc({ text }) {
   return <p className="mb-[1.5rem] text-[#5a5a5a]">{text}</p>
 }
 
-// Renders add button for a section content
+// Add component renders an "Add" button for a section of content.
 export function Add({ text, onClick }) {
   return (
     <p
@@ -45,6 +45,7 @@ export function Add({ text, onClick }) {
   )
 }
 
+// Textarea component renders a text area for user input.
 export function Textarea({ onChange, length, textholder }) {
   return (
     <textarea
@@ -56,7 +57,7 @@ export function Textarea({ onChange, length, textholder }) {
   )
 }
 
-// Renders a list of skills and the option to add more skills
+// SkillsList component renders a list of skills and an "Add" button.
 export function SkillsList() {
   const skills = [
     'Adaptability',
@@ -106,7 +107,7 @@ export function SkillsList() {
   )
 }
 
-// Renders the custom section where you can choose if you want to add another section to the cv
+// CustomSec component renders a list of custom sections that can be added.
 export function CustomSec() {
   const custom = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
@@ -147,7 +148,7 @@ export function CustomSec() {
   )
 }
 
-// Renders input fields
+// Field component renders a label and an input field for a form field.
 export function Field({ title, type, length, onChange }) {
   return (
     <label>
@@ -157,11 +158,19 @@ export function Field({ title, type, length, onChange }) {
   )
 }
 
+// AddNewForm component allows the user to add new experiences.
 export function AddNewForm() {
   const [isToggled, setIsToggled] = useState(false)
+  const [title, setTitle] = useState('')
+  const [place, setPlace] = useState('')
 
+  // Handle toggling the form visibility when the title is clicked.
   const handleToggle = () => {
     setIsToggled(!isToggled)
+  }
+
+  const handleEvent = (setEvent, e) => {
+    setEvent(e.target.value)
   }
 
   return (
@@ -178,15 +187,19 @@ export function AddNewForm() {
           cursor-pointer
           "
       >
-        Experiences
+        {title !== '' && place !== ''
+          ? `${title} at ${place}`
+          : title !== '' || place !== ''
+          ? `${title} ${place}`
+          : ''}
         <i
           className={`fi ${
             isToggled ? 'fi-rr-angle-small-down' : 'fi-rr-angle-small-up'
-          } flex text-[1.3rem]`}
+          } flex justify-end text-[1.3rem] grow`}
         ></i>
       </h1>
 
-      <form className={`${isToggled ? 'hidden' : 'block mt-[0.5rem]'}`}>
+      <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
         <fieldset
           className={`
                 flex
@@ -208,8 +221,18 @@ export function AddNewForm() {
                 `}
         >
           <div>
-            <Field title={'Job title'} type={'text'} length={30} />
-            <Field title={'Employer'} type={'text'} length={30} />
+            <Field
+              title={'Job title'}
+              type={'text'}
+              length={45}
+              onChange={(e) => handleEvent(setTitle, e)}
+            />
+            <Field
+              title={'Employer'}
+              type={'text'}
+              length={30}
+              onChange={(e) => handleEvent(setPlace, e)}
+            />
           </div>
 
           <div>
