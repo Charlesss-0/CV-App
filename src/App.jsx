@@ -9,7 +9,8 @@ import {
   SkillsList,
   CustomSec,
   Add,
-  AddNewForm
+  AddNewForm,
+  Textarea
 } from './components/appUtils'
 import { CvPage } from './components/template'
 
@@ -144,11 +145,12 @@ export default function App() {
                 }
               />
 
-              <textarea
-                className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939]"
+              <Textarea
                 onChange={(e) => handleEvent(setProfileDesc, e)}
-                maxLength={200}
-                placeholder="pe, science teacher passionate about his profession with more than 8 years of experience."
+                length={200}
+                textholder={
+                  'pe, science teacher passionate about his profession with more than 8 years of experience.'
+                }
               />
             </fieldset>
           </form>

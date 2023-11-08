@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useState } from 'react'
+
 // Renders a section including header, description and the option to add more content
 export function Section({ header, description }) {
   return (
@@ -40,6 +42,17 @@ export function Add({ text, onClick }) {
       <i className="fi fi-rr-plus-small flex"></i>
       {text}
     </p>
+  )
+}
+
+export function Textarea({ onChange, length, textholder }) {
+  return (
+    <textarea
+      className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
+      onChange={onChange}
+      maxLength={length}
+      placeholder={textholder}
+    />
   )
 }
 
@@ -134,6 +147,7 @@ export function CustomSec() {
   )
 }
 
+// Renders input fields
 export function Field({ title, type, length, onChange }) {
   return (
     <label>
@@ -144,15 +158,37 @@ export function Field({ title, type, length, onChange }) {
 }
 
 export function AddNewForm() {
+  const [isToggled, setIsToggled] = useState(false)
+
+  const handleToggle = () => {
+    setIsToggled(!isToggled)
+  }
+
   return (
-    <div className="border-solid border-2 border-black p-[0.5rem]">
-      <h1 className="border-solid border-2 border-black p-[1rem] mb-[0.5rem]">
+    <div className="border-solid border border-[#afafaf] rounded-[10px] p-[0.5rem] mb-[1rem]">
+      <h1
+        onClick={handleToggle}
+        className="
+          bg-[#cacaca55] 
+          p-[1rem] 
+          rounded-[5px] 
+          flex 
+          justify-between 
+          items-center 
+          cursor-pointer
+          "
+      >
         Experiences
+        <i
+          className={`fi ${
+            isToggled ? 'fi-rr-angle-small-down' : 'fi-rr-angle-small-up'
+          } flex text-[1.3rem]`}
+        ></i>
       </h1>
 
-      <form>
+      <form className={`${isToggled ? 'hidden' : 'block mt-[0.5rem]'}`}>
         <fieldset
-          className="
+          className={`
                 flex
                 flex-col
                 gap-[1rem] 
@@ -169,11 +205,26 @@ export function AddNewForm() {
                 [&>div>label>input]:rounded-lg
                 [&>div>label>input]:text-[#393939]
                 [&>div>label>input]:font-normal
-                "
+                `}
         >
           <div>
             <Field title={'Job title'} type={'text'} length={30} />
+            <Field title={'Employer'} type={'text'} length={30} />
           </div>
+
+          <div>
+            <Field title={'Start date'} type={'date'} />
+            <Field title={'End date'} type={'date'} />
+          </div>
+
+          <p className="text-[#5a5a5a] mt-[0.5rem]">Description</p>
+
+          <Textarea
+            length={200}
+            textholder={
+              "e.g.: I created and implemented educational plans based on the children's interests and curiosities."
+            }
+          />
         </fieldset>
       </form>
     </div>
