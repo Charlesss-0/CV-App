@@ -159,7 +159,7 @@ export function Field({ title, type, length, onChange }) {
 }
 
 // AddNewForm component allows the user to add new experiences.
-export function AddNewForm() {
+export function AddNewForm({ titleOnChange, placeOnChange }) {
   const [isToggled, setIsToggled] = useState(false)
   const [title, setTitle] = useState('')
   const [place, setPlace] = useState('')
@@ -225,13 +225,19 @@ export function AddNewForm() {
               title={'Job title'}
               type={'text'}
               length={45}
-              onChange={(e) => handleEvent(setTitle, e)}
+              onChange={(e) => {
+                handleEvent(setTitle, e)
+                titleOnChange && titleOnChange(e)
+              }}
             />
             <Field
               title={'Employer'}
               type={'text'}
               length={30}
-              onChange={(e) => handleEvent(setPlace, e)}
+              onChange={(e) => {
+                handleEvent(setPlace, e)
+                placeOnChange && placeOnChange(e)
+              }}
             />
           </div>
 

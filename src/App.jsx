@@ -12,7 +12,7 @@ import {
   AddNewForm,
   Textarea
 } from './components/appUtils'
-import { CvPage } from './components/template'
+import { ResumeTemplate } from './components/template'
 
 export default function App() {
   const [firstName, setFirstName] = useState('')
@@ -30,15 +30,32 @@ export default function App() {
       ? `${city} ${country}`
       : ''
   const [forms, setForm] = useState([])
+  const [prevJobPosition, setprevJobPosition] = useState([])
+  const [prevJobName, setPrevJobName] = useState([])
+
+  const handlePrev = (setEvent, arr, e) => {
+    setEvent([...arr, e.target.value])
+  }
 
   const handleEvent = (setEvent, e) => {
     setEvent(e.target.value)
   }
 
   const addForm = () => {
-    setForm([...forms, <AddNewForm key={forms.length} />])
-    console.log(forms.length)
+    setForm([
+      ...forms,
+      <AddNewForm
+        key={forms.length}
+        titleOnChange={(e) =>
+          handlePrev(setprevJobPosition, prevJobPosition, e)
+        }
+        placeOnChange={(e) => handlePrev(setPrevJobName, prevJobName, e)}
+      />
+    ])
   }
+
+  console.log(prevJobPosition)
+  console.log(prevJobName)
 
   return (
     <>
@@ -209,7 +226,7 @@ export default function App() {
           </div>
         </div>
 
-        <CvPage
+        <ResumeTemplate
           firstName={firstName}
           lastName={lastName}
           jobTitle={jobTitle}
@@ -217,6 +234,8 @@ export default function App() {
           email={email}
           phone={phone}
           cityCountry={cityCountry}
+          prevJobPos={prevJobPosition}
+          prevJobName={prevJobName}
         />
       </div>
     </>

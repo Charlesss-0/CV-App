@@ -3,14 +3,16 @@
 import { useRef, useState } from 'react'
 import { ContactInfo, Title } from './templateUtils'
 
-export function CvPage({
+export function ResumeTemplate({
   firstName,
   lastName,
   jobTitle,
   profileDescription,
   email,
   phone,
-  cityCountry
+  cityCountry,
+  prevJobPos,
+  prevJobName
 }) {
   const fileInputRef = useRef(null)
   const [selectedFileName, setSelectedFileName] = useState(null)
@@ -145,6 +147,13 @@ export function CvPage({
               </h3>
 
               <h1 className="my-[1em]">Experience</h1>
+              <h3 className="text-[#2f2f2f] font-normal">{`${
+                prevJobPos !== '' && prevJobName !== ''
+                  ? `${prevJobPos} at ${prevJobName}`
+                  : prevJobPos !== '' || prevJobName !== ''
+                  ? `${prevJobPos} ${prevJobName}`
+                  : ''
+              }`}</h3>
             </div>
           </div>
         </div>
