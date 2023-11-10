@@ -12,7 +12,8 @@ export function ResumeTemplate({
   phone,
   cityCountry,
   prevJobPos,
-  prevJobName
+  prevJobName,
+  jobPositionAndName
 }) {
   const fileInputRef = useRef(null)
   const [selectedFileName, setSelectedFileName] = useState(null)
@@ -146,14 +147,20 @@ export function ResumeTemplate({
                 {profileDescription}
               </h3>
 
-              <h1 className="my-[1em]">Experience</h1>
-              <h3 className="text-[#2f2f2f] font-normal">{`${
-                prevJobPos !== '' && prevJobName !== ''
-                  ? `${prevJobPos} at ${prevJobName}`
-                  : prevJobPos !== '' || prevJobName !== ''
-                  ? `${prevJobPos} ${prevJobName}`
-                  : ''
-              }`}</h3>
+              <h1 className="my-[1em]">
+                {!prevJobPos || !prevJobName ? '' : 'Experience'}
+              </h1>
+              <div
+                className="
+                  flex 
+                  gap-[1rem]
+                  [&>div]:text-[1rem]
+                  "
+              >
+                <div>{prevJobPos}</div>
+                <div>{prevJobName}</div>
+              </div>
+              <h3>{jobPositionAndName}</h3>
             </div>
           </div>
         </div>

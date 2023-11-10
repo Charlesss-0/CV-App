@@ -11,10 +11,11 @@ import {
   Add,
   AddNewForm,
   Textarea
-} from './components/appUtils'
+} from './components/utils'
 import { ResumeTemplate } from './components/template'
 
 export default function App() {
+  // State variables for user input
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [jobTitle, setJobTitle] = useState('')
@@ -23,22 +24,26 @@ export default function App() {
   const [phone, setPhone] = useState('')
   const [country, setCountry] = useState('')
   const [city, setCity] = useState('')
+
+  // Computed variable to format city and country
   const cityCountry =
     city !== '' && country !== ''
       ? `${city}, ${country}`
       : city !== '' || country !== ''
       ? `${city} ${country}`
       : ''
+
+  // State variables for job history and user input in each job form
   const [forms, setForm] = useState([])
   const [prevJobPosition, setprevJobPosition] = useState([])
   const [prevJobName, setPrevJobName] = useState([])
 
-  const handlePrev = (setEvent, arr, e) => {
-    setEvent([...arr, e.target.value])
-  }
-
   const handleEvent = (setEvent, e) => {
     setEvent(e.target.value)
+  }
+
+  const handleAddJob = (setEvent, arr, e) => {
+    setEvent([...arr, e.target.value])
   }
 
   const addForm = () => {
@@ -47,15 +52,12 @@ export default function App() {
       <AddNewForm
         key={forms.length}
         titleOnChange={(e) =>
-          handlePrev(setprevJobPosition, prevJobPosition, e)
+          handleAddJob(setprevJobPosition, prevJobPosition, e)
         }
-        placeOnChange={(e) => handlePrev(setPrevJobName, prevJobName, e)}
+        placeOnChange={(e) => handleAddJob(setPrevJobName, prevJobName, e)}
       />
     ])
   }
-
-  console.log(prevJobPosition)
-  console.log(prevJobName)
 
   return (
     <>
@@ -234,8 +236,12 @@ export default function App() {
           email={email}
           phone={phone}
           cityCountry={cityCountry}
-          prevJobPos={prevJobPosition}
-          prevJobName={prevJobName}
+          prevJobPos={prevJobPosition.map((job, index) => (
+            <div key={index}>{job}</div>
+          ))}
+          prevJobName={prevJobName.map((job, index) => (
+            <div key={index}>{job}</div>
+          ))}
         />
       </div>
     </>
