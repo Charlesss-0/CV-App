@@ -13,7 +13,7 @@ export function ResumeTemplate({
   cityCountry,
   prevJobPos,
   prevJobName,
-  jobPositionAndName
+  skills
 }) {
   const fileInputRef = useRef(null)
   const [selectedFileName, setSelectedFileName] = useState(null)
@@ -100,7 +100,7 @@ export function ResumeTemplate({
                 )}
               </div>
 
-              <Title text={'Contact'} />
+              {email ? <Title text={'Contact'} /> : ''}
 
               <div className="w-full p-[1rem] flex flex-col gap-1">
                 <ContactInfo type={email !== '' ? 'email' : ''} info={email} />
@@ -111,7 +111,8 @@ export function ResumeTemplate({
                 />
               </div>
 
-              <Title text={'Skills'} />
+              {skills ? <Title text={'Skills'} /> : ''}
+              <div>{skills}</div>
             </div>
 
             <div
@@ -147,20 +148,26 @@ export function ResumeTemplate({
                 {profileDescription}
               </h3>
 
-              <h1 className="my-[1em]">
-                {!prevJobPos || !prevJobName ? '' : 'Experience'}
+              <h1 className="my-[1rem]">
+                {prevJobPos.length === 0 ? '' : 'Experience'}
               </h1>
               <div
                 className="
                   flex 
                   gap-[1rem]
+                  text-[#5f5f5f] 
+                  font-normal
                   [&>div]:text-[1rem]
                   "
               >
                 <div>{prevJobPos}</div>
+                <div>
+                  {prevJobName.map((index) => (
+                    <div key={index}>at</div>
+                  ))}
+                </div>
                 <div>{prevJobName}</div>
               </div>
-              <h3>{jobPositionAndName}</h3>
             </div>
           </div>
         </div>
