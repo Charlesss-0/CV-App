@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export function ContactInfo({ type, info }) {
+export function Contact({ type, info }) {
   const getIconClass = () => {
     switch (type) {
       case 'email':
@@ -24,10 +24,8 @@ export function ContactInfo({ type, info }) {
 
 export function Title({ text }) {
   return (
-    <>
-      <h1 className="mt-[1.5em] m-[0.5em] mb-0 text-[1.5rem] font-semibold">
-        {text}
-      </h1>
-    </>
+    <h1 className="mt-[1.5em] m-[0.5em] mb-0 text-[1.5rem] font-semibold">
+      {text}
+    </h1>
   )
 }

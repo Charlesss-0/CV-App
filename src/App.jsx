@@ -1,49 +1,48 @@
 /* eslint-disable react/prop-types */
 import './styles/App.css'
-import { useState } from 'react'
+import { signal } from '@preact/signals-react'
 import { Form } from './components/userData/sideForm'
-import { ResumeTemplate } from './components/resume/template'
+import { ResumeTemplate } from './components/resume/resume'
 
 export default function App() {
   // State variables for user input
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [jobTitle, setJobTitle] = useState('')
-  const [profileDesc, setProfileDesc] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [country, setCountry] = useState('')
-  const [city, setCity] = useState('')
+  const firstName = signal('')
+  const lastName = signal('')
+  const jobTitle = signal('')
+  const profileDesc = signal('')
+  const email = signal('')
+  const phone = signal('')
+  const country = signal('')
+  const city = signal('')
 
-  // Computed variable to format city and country
   const cityCountry =
-    city !== '' && country !== ''
-      ? `${city}, ${country}`
-      : city !== '' || country !== ''
-      ? `${city} ${country}`
+    city.value !== '' && country.value !== ''
+      ? `${city.value}, ${country.value}`
+      : city.value !== '' || country.value !== ''
+      ? `${city.value} ${country.value}`
       : ''
 
   // State variables for job history and user input in each job form
   // const [forms, setForm] = useState([])
-  const [prevJobPosition, setprevJobPosition] = useState([])
-  const [prevJobName, setPrevJobName] = useState([])
+  const prevJobPosition = signal([])
+  const prevJobName = signal([])
 
   return (
     <main className="flex">
       <Form />
 
       <ResumeTemplate
-        firstName={firstName}
-        lastName={lastName}
-        jobTitle={jobTitle}
-        profileDescription={profileDesc}
-        email={email}
-        phone={phone}
+        firstName={firstName.value}
+        lastName={lastName.value}
+        jobTitle={jobTitle.value}
+        profileDescription={profileDesc.value}
+        email={email.value}
+        phone={phone.value}
         cityCountry={cityCountry}
-        prevJobPos={prevJobPosition.map((job, index) => (
+        prevJobPos={prevJobPosition.value.map((job, index) => (
           <div key={index}>{job}</div>
         ))}
-        prevJobName={prevJobName.map((job, index) => (
+        prevJobName={prevJobName.value.map((job, index) => (
           <div key={index}>{job}</div>
         ))}
       />
