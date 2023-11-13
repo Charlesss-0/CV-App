@@ -1,5 +1,5 @@
 // CustomSec component renders a list of custom sections that can be added.
-export function CustomSec() {
+export function AddCustomSection() {
   const custom = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
     { name: 'Extracurricular activities', icon: 'fi fi-sr-seedling' },

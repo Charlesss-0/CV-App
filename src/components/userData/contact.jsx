@@ -1,4 +1,14 @@
-export function ContactInfo() {
+/* eslint-disable react/prop-types */
+export function ContactInfo({
+  jobTitle,
+  firstName,
+  lastName,
+  email,
+  phone,
+  city,
+  country,
+  profileDesc
+}) {
   return (
     <form className="flex flex-col gap-[2rem]">
       <h1 className="text-[1.6rem] mt-[2rem] font-semibold">
@@ -28,43 +38,43 @@ export function ContactInfo() {
         <div>
           <label>
             Job Title <br />
-            <input type="text" maxLength={30} />
+            <input type="text" maxLength={30} onChange={(e) => jobTitle(e)} />
           </label>
         </div>
 
         <div>
           <label>
             First Name <br />
-            <input type="text" maxLength={20} />
+            <input type="text" maxLength={20} onChange={(e) => firstName(e)} />
           </label>
 
           <label>
             Last Name <br />
-            <input type="text" maxLength={20} />
+            <input type="text" maxLength={20} onChange={(e) => lastName(e)} />
           </label>
         </div>
 
         <div>
           <label>
             E-mail <br />
-            <input type="email" maxLength={30} />
+            <input type="email" maxLength={30} onChange={(e) => email(e)} />
           </label>
 
           <label>
             Phone <br />
-            <input type="tel" maxLength={15} />
+            <input type="tel" maxLength={15} onChange={(e) => phone(e)} />
           </label>
         </div>
 
         <div>
           <label>
             City <br />
-            <input type="text" />
+            <input type="text" onChange={(e) => city(e)} />
           </label>
 
           <label>
             Country <br />
-            <input type="text" />
+            <input type="text" onChange={(e) => country(e)} />
           </label>
         </div>
       </fieldset>
@@ -82,6 +92,7 @@ export function ContactInfo() {
           className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
           maxLength={200}
           placeholder="pe, science teacher passionate about his profession with more than 8 years of experience."
+          onChange={(e) => profileDesc(e)}
         />
       </fieldset>
     </form>

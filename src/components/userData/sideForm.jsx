@@ -2,9 +2,18 @@
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
-import { CustomSec } from './custom'
+import { AddCustomSection } from './custom'
 
-export function Form() {
+export function Form({
+  jobTitle,
+  firstName,
+  lastName,
+  email,
+  phone,
+  city,
+  country,
+  profileDesc
+}) {
   return (
     <div
       className="
@@ -20,7 +29,16 @@ export function Form() {
             "
       id="cv-form-section"
     >
-      <ContactInfo />
+      <ContactInfo
+        jobTitle={jobTitle}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        phone={phone}
+        city={city}
+        country={country}
+        profileDesc={profileDesc}
+      />
 
       <AddSection
         title={'Work Experience'}
@@ -66,7 +84,7 @@ export function Form() {
           }
         />
 
-        <CustomSec />
+        <AddCustomSection />
       </div>
     </div>
   )

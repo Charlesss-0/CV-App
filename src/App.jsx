@@ -1,48 +1,61 @@
 /* eslint-disable react/prop-types */
 import './styles/App.css'
-import { signal } from '@preact/signals-react'
 import { Form } from './components/userData/sideForm'
 import { ResumeTemplate } from './components/resume/resume'
+import { useState } from 'react'
 
 export default function App() {
   // State variables for user input
-  const firstName = signal('')
-  const lastName = signal('')
-  const jobTitle = signal('')
-  const profileDesc = signal('')
-  const email = signal('')
-  const phone = signal('')
-  const country = signal('')
-  const city = signal('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [jobTitle, setJobTitle] = useState('')
+  const [profileDesc, setProfileDesc] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [country, setCountry] = useState('')
+  const [city, setCity] = useState('')
+  const [prevJobPosition, setPrevJobPosition] = useState([])
+  const [prevJobName, setPrevJobName] = useState([])
 
   const cityCountry =
-    city.value !== '' && country.value !== ''
-      ? `${city.value}, ${country.value}`
-      : city.value !== '' || country.value !== ''
-      ? `${city.value} ${country.value}`
+    city !== '' && country !== ''
+      ? `${city}, ${country}`
+      : city !== '' || country !== ''
+      ? `${city} ${country}`
       : ''
 
   // State variables for job history and user input in each job form
   // const [forms, setForm] = useState([])
-  const prevJobPosition = signal([])
-  const prevJobName = signal([])
+
+  const handleEvent = (setEvent, e) => {
+    setEvent(e.target.value)
+  }
 
   return (
     <main className="flex">
-      <Form />
+      <Form
+        jobTitle={(e) => handleEvent(setJobTitle, e)}
+        firstName={(e) => handleEvent(setFirstName, e)}
+        lastName={(e) => handleEvent(setLastName, e)}
+        email={(e) => handleEvent(setEmail, e)}
+        phone={(e) => handleEvent(setPhone, e)}
+        city={(e) => handleEvent(setCity, e)}
+        country={(e) => handleEvent(setCountry, e)}
+        profileDesc={(e) => handleEvent(setProfileDesc, e)}
+      />
 
       <ResumeTemplate
-        firstName={firstName.value}
-        lastName={lastName.value}
-        jobTitle={jobTitle.value}
-        profileDescription={profileDesc.value}
-        email={email.value}
-        phone={phone.value}
+        firstName={firstName}
+        lastName={lastName}
+        jobTitle={jobTitle}
+        profileDescription={profileDesc}
+        email={email}
+        phone={phone}
         cityCountry={cityCountry}
-        prevJobPos={prevJobPosition.value.map((job, index) => (
+        prevJobPos={prevJobPosition.map((job, index) => (
           <div key={index}>{job}</div>
         ))}
-        prevJobName={prevJobName.value.map((job, index) => (
+        prevJobName={prevJobName.map((job, index) => (
           <div key={index}>{job}</div>
         ))}
       />
