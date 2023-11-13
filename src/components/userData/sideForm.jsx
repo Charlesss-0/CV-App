@@ -3,6 +3,8 @@ import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
 import { AddCustomSection } from './custom'
+import { AddNewForm } from './experience'
+import { useState } from 'react'
 
 export function Form({
   jobTitle,
@@ -12,8 +14,16 @@ export function Form({
   phone,
   city,
   country,
-  profileDesc
+  profileDesc,
+  prevJobTitle,
+  prevEmployer
 }) {
+  const [experiences, setExperiences] = useState([])
+
+  const handleEvent = (setEvent, arr, newArr) => {
+    setEvent([...arr, newArr])
+  }
+
   return (
     <div
       className="
@@ -47,6 +57,18 @@ export function Form({
           Start with the most recent position.
         `}
         btnText={'Add job'}
+        event={() =>
+          handleEvent(
+            setExperiences,
+            experiences,
+            <AddNewForm
+              key={experiences.length}
+              prevJobTitle={prevJobTitle}
+              prevEmployer={prevEmployer}
+            />
+          )
+        }
+        list={experiences}
       />
 
       <AddSection

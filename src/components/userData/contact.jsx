@@ -38,43 +38,43 @@ export function ContactInfo({
         <div>
           <label>
             Job Title <br />
-            <input type="text" maxLength={30} onChange={(e) => jobTitle(e)} />
+            <input type="text" maxLength={30} onChange={jobTitle} />
           </label>
         </div>
 
         <div>
           <label>
             First Name <br />
-            <input type="text" maxLength={20} onChange={(e) => firstName(e)} />
+            <input type="text" maxLength={20} onChange={firstName} />
           </label>
 
           <label>
             Last Name <br />
-            <input type="text" maxLength={20} onChange={(e) => lastName(e)} />
+            <input type="text" maxLength={20} onChange={lastName} />
           </label>
         </div>
 
         <div>
           <label>
             E-mail <br />
-            <input type="email" maxLength={30} onChange={(e) => email(e)} />
+            <input type="email" maxLength={30} onChange={email} />
           </label>
 
           <label>
             Phone <br />
-            <input type="tel" maxLength={15} onChange={(e) => phone(e)} />
+            <input type="tel" maxLength={15} onChange={phone} />
           </label>
         </div>
 
         <div>
           <label>
             City <br />
-            <input type="text" onChange={(e) => city(e)} />
+            <input type="text" onChange={city} />
           </label>
 
           <label>
             Country <br />
-            <input type="text" onChange={(e) => country(e)} />
+            <input type="text" onChange={country} />
           </label>
         </div>
       </fieldset>
@@ -92,7 +92,7 @@ export function ContactInfo({
           className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
           maxLength={200}
           placeholder="pe, science teacher passionate about his profession with more than 8 years of experience."
-          onChange={(e) => profileDesc(e)}
+          onChange={profileDesc}
         />
       </fieldset>
     </form>

@@ -24,11 +24,12 @@ export default function App() {
       ? `${city} ${country}`
       : ''
 
-  // State variables for job history and user input in each job form
-  // const [forms, setForm] = useState([])
-
   const handleEvent = (setEvent, e) => {
     setEvent(e.target.value)
+  }
+
+  const handlePrev = (setEvent, arr, e) => {
+    setEvent([...arr, e.target.value])
   }
 
   return (
@@ -42,6 +43,8 @@ export default function App() {
         city={(e) => handleEvent(setCity, e)}
         country={(e) => handleEvent(setCountry, e)}
         profileDesc={(e) => handleEvent(setProfileDesc, e)}
+        prevJobTitle={(e) => handlePrev(setPrevJobPosition, prevJobPosition, e)}
+        prevEmployer={(e) => handlePrev(setPrevJobName, prevJobName, e)}
       />
 
       <ResumeTemplate
