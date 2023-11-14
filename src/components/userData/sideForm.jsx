@@ -16,7 +16,10 @@ export function Form({
   country,
   profileDesc,
   prevJobTitle,
-  prevEmployer
+  prevEmployer,
+  startDate,
+  endDate,
+  description
 }) {
   const [experiences, setExperiences] = useState([])
 
@@ -65,6 +68,9 @@ export function Form({
               key={experiences.length}
               prevJobTitle={prevJobTitle}
               prevEmployer={prevEmployer}
+              start={startDate}
+              end={endDate}
+              description={description}
             />
           )
         }

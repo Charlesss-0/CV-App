@@ -2,7 +2,13 @@
 import { useState } from 'react'
 
 // AddNewForm component allows the user to add new experiences.
-export function AddNewForm({ prevJobTitle, prevEmployer }) {
+export function AddNewForm({
+  prevJobTitle,
+  prevEmployer,
+  start,
+  end,
+  description
+}) {
   const [isToggled, setIsToggled] = useState(false)
   const [title, setTitle] = useState('')
   const [place, setPlace] = useState('')
@@ -92,12 +98,12 @@ export function AddNewForm({ prevJobTitle, prevEmployer }) {
           <div>
             <label>
               Start date <br />
-              <input type="date" />
+              <input type="date" onChange={(e) => start(e)} />
             </label>
 
             <label>
               End date <br />
-              <input type="date" />
+              <input type="date" onChange={(e) => end(e)} />
             </label>
           </div>
 
@@ -107,6 +113,7 @@ export function AddNewForm({ prevJobTitle, prevEmployer }) {
             className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
             maxLength={200}
             placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
+            onChange={description}
           />
         </fieldset>
       </form>

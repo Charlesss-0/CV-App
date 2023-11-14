@@ -16,11 +16,17 @@ export default function App() {
   const [city, setCity] = useState('')
   const [prevJobPosition, setPrevJobPosition] = useState([])
   const [prevJobName, setPrevJobName] = useState([])
+  const [startDate, setStartDate] = useState([])
+  const [endDate, setEndDate] = useState([])
+  const [description, setDescription] = useState([])
 
   const prevPositions = prevJobPosition.map((position, index) => {
     return {
       position: position,
-      employer: prevJobName[index]
+      employer: prevJobName[index],
+      start: startDate[index],
+      end: endDate[index],
+      description: description[index]
     }
   })
 
@@ -52,6 +58,9 @@ export default function App() {
         profileDesc={(e) => handleEvent(setProfileDesc, e)}
         prevJobTitle={(e) => handlePrev(setPrevJobPosition, prevJobPosition, e)}
         prevEmployer={(e) => handlePrev(setPrevJobName, prevJobName, e)}
+        startDate={(e) => handlePrev(setStartDate, startDate, e)}
+        endDate={(e) => handlePrev(setEndDate, endDate, e)}
+        description={(e) => handlePrev(setDescription, description, e)}
       />
 
       <ResumeTemplate
@@ -68,7 +77,9 @@ export default function App() {
               ''
             ) : (
               <div>
-                {job.position} at {job.employer}
+                {job.position} at {job.employer} <br />
+                {job.start} to {job.end} <br />
+                {job.description}
               </div>
             )}
           </div>
