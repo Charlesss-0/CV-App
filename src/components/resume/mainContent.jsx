@@ -4,8 +4,7 @@ export function Main({
   lastName,
   profileDescription,
   jobTitle,
-  prevJobPos,
-  prevJobName
+  jobHistory
 }) {
   return (
     <div
@@ -39,9 +38,9 @@ export function Main({
         {profileDescription}
       </h3>
 
-      <h1 className="my-[1rem]">
+      {/* <h1 className="my-[1rem]">
         {prevJobPos.length === 0 ? '' : 'Experience'}
-      </h1>
+      </h1> */}
       <div
         className="
             flex 
@@ -51,13 +50,14 @@ export function Main({
             [&>div]:text-[1rem]
             "
       >
-        <div>{prevJobPos}</div>
+        {/* <div>{prevJobPos}</div>
         <div>
           {prevJobName.map((index) => (
             <div key={index}>at</div>
           ))}
         </div>
-        <div>{prevJobName}</div>
+        <div>{prevJobName}</div> */}
+        <div>{jobHistory}</div>
       </div>
     </div>
   )

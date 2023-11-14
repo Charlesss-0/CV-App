@@ -17,6 +17,13 @@ export default function App() {
   const [prevJobPosition, setPrevJobPosition] = useState([])
   const [prevJobName, setPrevJobName] = useState([])
 
+  const prevPositions = prevJobPosition.map((position, index) => {
+    return {
+      position: position,
+      employer: prevJobName[index]
+    }
+  })
+
   const cityCountry =
     city !== '' && country !== ''
       ? `${city}, ${country}`
@@ -55,11 +62,16 @@ export default function App() {
         email={email}
         phone={phone}
         cityCountry={cityCountry}
-        prevJobPos={prevJobPosition.map((job, index) => (
-          <div key={index}>{job}</div>
-        ))}
-        prevJobName={prevJobName.map((job, index) => (
-          <div key={index}>{job}</div>
+        jobHistory={prevPositions.map((job, index) => (
+          <div key={index}>
+            {!job.position && !job.employer ? (
+              ''
+            ) : (
+              <div>
+                {job.position} at {job.employer}
+              </div>
+            )}
+          </div>
         ))}
       />
     </main>

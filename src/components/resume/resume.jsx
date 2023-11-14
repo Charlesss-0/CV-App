@@ -12,7 +12,8 @@ export function ResumeTemplate({
   cityCountry,
   prevJobPos,
   prevJobName,
-  skills
+  skills,
+  jobHistory
 }) {
   return (
     <>
@@ -37,6 +38,7 @@ export function ResumeTemplate({
               profileDescription={profileDescription}
               prevJobPos={prevJobPos}
               prevJobName={prevJobName}
+              jobHistory={jobHistory}
             />
           </div>
         </div>

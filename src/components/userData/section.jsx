@@ -15,11 +15,9 @@ export function AddSection({ title, description, btnText, event, list }) {
         ''
       )}
 
-      {Array.isArray(list) ? (
-        list.map((item, index) => <div key={index}>{item}</div>)
-      ) : (
-        <div>Invalid or undefined list</div>
-      )}
+      {Array.isArray(list)
+        ? list.map((item, index) => <div key={index}>{item}</div>)
+        : ''}
 
       {btnText ? (
         <button
