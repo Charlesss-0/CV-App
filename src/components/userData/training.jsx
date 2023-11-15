@@ -2,12 +2,12 @@
 import { useState } from 'react'
 
 // AddJob component allows the user to add new experiences.
-export function AddJob({
-  prevJobTitle,
-  prevEmployer,
+export function AddTraining({
+  prevEntity,
+  prevQualification,
   start,
   end,
-  description
+  trainingDescription
 }) {
   const [isToggled, setIsToggled] = useState(false)
   const [title, setTitle] = useState('')
@@ -27,17 +27,17 @@ export function AddJob({
       <h1
         onClick={handleToggle}
         className="
-              bg-[#cacaca55]
-              p-[1rem]
-              rounded-[5px]
-              flex
-              justify-between
-              items-center
-              cursor-pointer
-              "
+            bg-[#cacaca55]
+            p-[1rem]
+            rounded-[5px]
+            flex
+            justify-between
+            items-center
+            cursor-pointer
+            "
       >
         {title !== '' && place !== ''
-          ? `${title} at ${place}`
+          ? `${place} in ${title} `
           : title !== '' || place !== ''
           ? `${title} ${place}`
           : ''}
@@ -50,46 +50,46 @@ export function AddJob({
 
       <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
         <fieldset
-          className={`
-                    flex
-                    flex-col
-                    gap-[1rem]
-                    text-[#4f4f4f]
-                    font-semibold
-                    [&>div]:flex
-                    [&>div]:gap-[1rem]
-                    [&>div>label]:w-full
-                    [&>div>label>input]:w-full
-                    [&>div>label]:flex
-                    [&>div>label]:flex-col
-                    [&>div>label]:gap-[0.5rem]
-                    [&>div>label>input]:p-[0.8rem]
-                    [&>div>label>input]:rounded-lg
-                    [&>div>label>input]:text-[#393939]
-                    [&>div>label>input]:font-normal
-                    `}
+          className="
+            flex
+            flex-col
+            gap-[1rem]
+            text-[#4f4f4f]
+            font-semibold
+            [&>div]:flex
+            [&>div]:gap-[1rem]
+            [&>div>label]:w-full
+            [&>div>label>input]:w-full
+            [&>div>label]:flex
+            [&>div>label]:flex-col
+            [&>div>label]:gap-[0.5rem]
+            [&>div>label>input]:p-[0.8rem]
+            [&>div>label>input]:rounded-lg
+            [&>div>label>input]:text-[#393939]
+            [&>div>label>input]:font-normal
+            "
         >
           <div>
             <label>
-              Job Title <br />
+              Entity <br />
               <input
                 type="text"
                 maxLength={45}
                 onChange={(e) => {
                   handleEvent(setTitle, e)
-                  prevJobTitle(e)
+                  prevEntity(e)
                 }}
               />
             </label>
 
             <label>
-              Employer <br />
+              Qualification <br />
               <input
                 type="text"
                 maxLength={30}
                 onChange={(e) => {
                   handleEvent(setPlace, e)
-                  prevEmployer(e)
+                  prevQualification(e)
                 }}
               />
             </label>
@@ -113,7 +113,7 @@ export function AddJob({
             className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
             maxLength={200}
             placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
-            onChange={description}
+            onChange={trainingDescription}
           />
         </fieldset>
       </form>

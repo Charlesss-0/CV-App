@@ -4,7 +4,8 @@ export function Main({
   lastName,
   profileDescription,
   jobTitle,
-  jobHistory
+  jobHistory,
+  training
 }) {
   return (
     <div
@@ -38,9 +39,7 @@ export function Main({
         {profileDescription}
       </h3>
 
-      <h1 className="my-[1rem]">
-        {jobHistory.length === 0 ? '' : 'Experience'}
-      </h1>
+      <h1 className="my-[1rem]">{jobHistory.length > 0 ? 'Experience' : ''}</h1>
       <div
         className="
             flex 
@@ -50,7 +49,20 @@ export function Main({
             [&>div]:text-[1rem]
             "
       >
-        <div>{jobHistory}</div>
+        {jobHistory}
+      </div>
+
+      <h1 className="my-[1rem]">{training.length > 0 ? 'Education' : ''}</h1>
+      <div
+        className="
+            flex 
+            gap-[1rem]
+            text-[#5f5f5f] 
+            font-normal
+            [&>div]:text-[1rem]
+            "
+      >
+        {training}
       </div>
     </div>
   )

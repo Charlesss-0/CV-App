@@ -19,6 +19,11 @@ export default function App() {
   const [startDate, setStartDate] = useState([])
   const [endDate, setEndDate] = useState([])
   const [description, setDescription] = useState([])
+  const [entity, setEntity] = useState([])
+  const [qualification, setQualification] = useState([])
+  const [trainingStart, setTrainingStart] = useState([])
+  const [trainingEnd, setTrainingEnd] = useState([])
+  const [trainingDescription, setTrainingDescription] = useState([])
 
   const prevPositions = prevJobPosition.map((position, index) => {
     return {
@@ -27,6 +32,16 @@ export default function App() {
       start: startDate[index],
       end: endDate[index],
       description: description[index]
+    }
+  })
+
+  const prevTraining = entity.map((entity, index) => {
+    return {
+      entity: entity,
+      qualification: qualification[index],
+      start: trainingStart[index],
+      end: trainingEnd[index],
+      description: trainingDescription[index]
     }
   })
 
@@ -61,6 +76,15 @@ export default function App() {
         startDate={(e) => handlePrev(setStartDate, startDate, e)}
         endDate={(e) => handlePrev(setEndDate, endDate, e)}
         description={(e) => handlePrev(setDescription, description, e)}
+        prevEntity={(e) => handlePrev(setEntity, entity, e)}
+        prevQualification={(e) =>
+          handlePrev(setQualification, qualification, e)
+        }
+        trainingStart={(e) => handlePrev(setTrainingStart, trainingStart, e)}
+        trainingEnd={(e) => handlePrev(setTrainingEnd, trainingEnd, e)}
+        trainingDescription={(e) =>
+          handlePrev(setTrainingDescription, trainingDescription, e)
+        }
       />
 
       <ResumeTemplate
@@ -76,12 +100,37 @@ export default function App() {
             {!job.position && !job.employer ? (
               ''
             ) : (
-              <div>
-                {job.position} at {job.employer} <br />
-                {job.start} to {job.end} <br />
-                {job.description}
-              </div>
+              <>
+                <p className="font-semibold text-[1.1rem]">
+                  {job.position}{' '}
+                  {job.employer && job.position ? `at ${job.employer}` : ''}
+                  <br />
+                  <span className="font-normal text-[1rem]">
+                    {job.start && job.end ? `${job.start} to ${job.end}` : ''}
+                  </span>
+                </p>
+                <p>{job.description}</p>
+              </>
             )}
+          </div>
+        ))}
+        training={prevTraining.map((training, index) => (
+          <div key={index}>
+            <>
+              <p className="font-semibold text-[1.1rem]">
+                {training.qualification && training.entity
+                  ? `${training.qualification} in`
+                  : ''}{' '}
+                {training.entity}
+                <br />
+                <span className="font-normal text-[1rem]">
+                  {training.start && training.end
+                    ? `${training.start} to ${training.end}`
+                    : ''}
+                </span>
+              </p>
+              <p>{training.description}</p>
+            </>
           </div>
         ))}
       />

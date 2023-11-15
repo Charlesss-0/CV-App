@@ -3,7 +3,8 @@ import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
 import { AddCustomSection } from './custom'
-import { AddNewForm } from './experience'
+import { AddJob } from './experience'
+import { AddTraining } from './training'
 import { useState } from 'react'
 
 export function Form({
@@ -19,9 +20,15 @@ export function Form({
   prevEmployer,
   startDate,
   endDate,
-  description
+  description,
+  prevEntity,
+  prevQualification,
+  trainingStart,
+  trainingEnd,
+  trainingDescription
 }) {
-  const [experiences, setExperiences] = useState([])
+  const [prevJob, setPrevJob] = useState([])
+  const [training, setTraining] = useState([])
 
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
@@ -62,10 +69,12 @@ export function Form({
         btnText={'Add job'}
         event={() =>
           handleEvent(
-            setExperiences,
-            experiences,
-            <AddNewForm
-              key={experiences.length}
+            setPrevJob,
+            prevJob,
+            <AddJob
+              expTitle={'Job title'}
+              expTitleTwo={'Employer'}
+              key={prevJob.length}
               prevJobTitle={prevJobTitle}
               prevEmployer={prevEmployer}
               start={startDate}
@@ -74,13 +83,28 @@ export function Form({
             />
           )
         }
-        list={experiences}
+        list={prevJob}
       />
 
       <AddSection
         title={'Training'}
         description={`If applicable, include your most recent academic achievements and dates here.`}
         btnText={'Add training'}
+        event={() =>
+          handleEvent(
+            setTraining,
+            training,
+            <AddTraining
+              key={training.length}
+              prevEntity={prevEntity}
+              prevQualification={prevQualification}
+              start={trainingStart}
+              end={trainingEnd}
+              trainingDescription={trainingDescription}
+            />
+          )
+        }
+        list={training}
       />
 
       <AddSection
