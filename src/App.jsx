@@ -29,11 +29,15 @@ export default function App() {
   const [startDate, setStartDate] = useState([])
   const [endDate, setEndDate] = useState([])
   const [description, setDescription] = useState([])
+
   const [entity, setEntity] = useState([])
   const [qualification, setQualification] = useState([])
   const [trainingStart, setTrainingStart] = useState([])
   const [trainingEnd, setTrainingEnd] = useState([])
   const [trainingDescription, setTrainingDescription] = useState([])
+
+  const [label, setLabel] = useState([])
+  const [url, setUrl] = useState([])
 
   const handlePrev = (setEvent, arr, e) => {
     setEvent([...arr, e.target.value])
@@ -59,6 +63,13 @@ export default function App() {
     }
   })
 
+  const links = label.map((link, index) => {
+    return {
+      label: link,
+      url: url[index]
+    }
+  })
+
   const mapJobHistory = (jobs) => {
     return jobs.map((job, index) => (
       <div key={index}>
@@ -67,9 +78,9 @@ export default function App() {
         ) : (
           <>
             {job.employer && job.position && (
-              <p>
+              <p className="font-semibold text-[1.1rem]">
                 {job.position} at {job.employer} <br />
-                <span>
+                <span className="font-normal text-[1rem]">
                   {job.start && job.end ? `${job.start} to ${job.end}` : ''}
                 </span>
               </p>
@@ -86,9 +97,9 @@ export default function App() {
       <div key={index}>
         {training.qualification && training.entity && (
           <>
-            <p>
+            <p className="font-semibold text-[1.1rem]">
               {training.qualification} in {training.entity} <br />
-              <span>
+              <span className="font-normal text-[1rem]">
                 {training.start && training.end
                   ? `${training.start} to ${training.end}`
                   : ''}
@@ -97,6 +108,21 @@ export default function App() {
             <p>{training.description}</p>
           </>
         )}
+      </div>
+    ))
+  }
+
+  const mapLinks = (links) => {
+    return links.map((link, i) => (
+      <div key={i}>
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noreferrer"
+          className="underline text-[#0766AD]"
+        >
+          {link.label}
+        </a>
       </div>
     ))
   }
@@ -133,6 +159,8 @@ export default function App() {
         trainingDescription={(e) =>
           handlePrev(setTrainingDescription, trainingDescription, e)
         }
+        label={(e) => handlePrev(setLabel, label, e)}
+        url={(e) => handlePrev(setUrl, url, e)}
       />
 
       <ResumeTemplate
@@ -145,6 +173,7 @@ export default function App() {
         cityCountry={cityCountry}
         jobHistory={mapJobHistory(prevPositions)}
         training={mapTrainingItem(prevTraining)}
+        label={mapLinks(links)}
       />
     </main>
   )

@@ -6,6 +6,7 @@ import { AddCustomSection } from './custom'
 import { AddJob } from './experience'
 import { AddTraining } from './training'
 import { useState } from 'react'
+import { AddLink } from './links'
 
 export function Form({
   jobTitle,
@@ -25,10 +26,13 @@ export function Form({
   prevQualification,
   trainingStart,
   trainingEnd,
-  trainingDescription
+  trainingDescription,
+  label,
+  url
 }) {
   const [prevJob, setPrevJob] = useState([])
   const [training, setTraining] = useState([])
+  const [links, setLinks] = useState([])
 
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
@@ -114,6 +118,14 @@ export function Form({
           It can be a link to your portfolio, your LinkedIn profile, or your personal website.
         `}
         btnText={'Add link'}
+        event={() =>
+          handleEvent(
+            setLinks,
+            links,
+            <AddLink key={links.length} label={label} url={url} />
+          )
+        }
+        list={links}
       />
 
       <AddSection

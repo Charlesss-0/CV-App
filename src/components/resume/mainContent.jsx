@@ -43,6 +43,7 @@ export function Main({
       <div
         className="
             flex 
+            flex-col
             gap-[1rem]
             text-[#5f5f5f] 
             font-normal
@@ -56,6 +57,7 @@ export function Main({
       <div
         className="
             flex 
+            flex-col
             gap-[1rem]
             text-[#5f5f5f] 
             font-normal

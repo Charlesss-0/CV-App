@@ -14,7 +14,8 @@ export function ResumeTemplate({
   prevJobName,
   skills,
   jobHistory,
-  training
+  training,
+  label
 }) {
   return (
     <>
@@ -30,6 +31,7 @@ export function ResumeTemplate({
               phone={phone}
               cityCountry={cityCountry}
               skills={skills}
+              label={label}
             />
 
             <Main

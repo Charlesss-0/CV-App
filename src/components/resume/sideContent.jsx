@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react'
 import { Contact, Title } from './helpers'
 
-export function SideContent({ email, phone, cityCountry, skills }) {
+export function SideContent({ email, phone, cityCountry, skills, label }) {
   const fileInputRef = useRef(null)
   const [selectedFileName, setSelectedFileName] = useState(null)
   const [imageUploaded, setImageUploaded] = useState(false)
@@ -93,6 +93,9 @@ export function SideContent({ email, phone, cityCountry, skills }) {
 
       {skills ? <Title text={'Skills'} /> : ''}
       <div>{skills}</div>
+
+      {label ? <Title text={'Links'} /> : ''}
+      <div className="px-[0.8rem]">{label}</div>
     </div>
   )
 }

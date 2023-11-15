@@ -27,14 +27,14 @@ export function AddJob({
       <h1
         onClick={handleToggle}
         className="
-              bg-[#cacaca55]
-              p-[1rem]
-              rounded-[5px]
-              flex
-              justify-between
-              items-center
-              cursor-pointer
-              "
+          bg-[#cacaca55]
+          p-[1rem]
+          rounded-[5px]
+          flex
+          justify-between
+          items-center
+          cursor-pointer
+          "
       >
         {title !== '' && place !== ''
           ? `${title} at ${place}`
@@ -50,24 +50,24 @@ export function AddJob({
 
       <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
         <fieldset
-          className={`
-                    flex
-                    flex-col
-                    gap-[1rem]
-                    text-[#4f4f4f]
-                    font-semibold
-                    [&>div]:flex
-                    [&>div]:gap-[1rem]
-                    [&>div>label]:w-full
-                    [&>div>label>input]:w-full
-                    [&>div>label]:flex
-                    [&>div>label]:flex-col
-                    [&>div>label]:gap-[0.5rem]
-                    [&>div>label>input]:p-[0.8rem]
-                    [&>div>label>input]:rounded-lg
-                    [&>div>label>input]:text-[#393939]
-                    [&>div>label>input]:font-normal
-                    `}
+          className="
+            flex
+            flex-col
+            gap-[1rem]
+            text-[#4f4f4f]
+            font-semibold
+            [&>div]:flex
+            [&>div]:gap-[1rem]
+            [&>div>label]:w-full
+            [&>div>label>input]:w-full
+            [&>div>label]:flex
+            [&>div>label]:flex-col
+            [&>div>label]:gap-[0.5rem]
+            [&>div>label>input]:p-[0.8rem]
+            [&>div>label>input]:rounded-lg
+            [&>div>label>input]:text-[#393939]
+            [&>div>label>input]:font-normal
+            "
         >
           <div>
             <label>
