@@ -27,7 +27,7 @@ export function AddSection({ title, description, btnText, event, list }) {
           gap-1
           text-[#0174be]
           cursor-pointer
-          hover:bg-[#afafaf55]
+          hover:bg-[#9BBEC833]
           p-[0.5rem]
           rounded-lg
           transition-all ease-in-out delay-100

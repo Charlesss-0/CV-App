@@ -95,7 +95,7 @@ export function SideContent({ email, phone, cityCountry, skills, label }) {
       <div>{skills}</div>
 
       {label ? <Title text={'Links'} /> : ''}
-      <div className="px-[0.8rem]">{label}</div>
+      <div className="px-[0.8rem] flex flex-col">{label}</div>
     </div>
   )
 }

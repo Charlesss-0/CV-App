@@ -1,5 +1,8 @@
+import { useState } from 'react'
+import { AddSection } from './section'
+
 export function SkillsList() {
-  const skills = [
+  const [skills, setSkills] = useState([
     'Adaptability',
     'Visual Design Skills',
     'Database Management',
@@ -8,7 +11,13 @@ export function SkillsList() {
     'React',
     'HTML',
     'CSS'
-  ]
+  ])
+
+  const [isToggle, setIsToggle] = useState(false)
+
+  const handleToggle = () => {
+    setIsToggle(true)
+  }
 
   return (
     <>
@@ -42,6 +51,20 @@ export function SkillsList() {
           </li>
         ))}
       </ul>
+
+      {isToggle ? (
+        <label className="flex gap-[0.5rem] mb-[1rem]">
+          <input
+            type="text"
+            className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
+          />
+          <button className="bg-[#afafaf55] px-[1rem] rounded-lg">Add</button>
+        </label>
+      ) : (
+        ''
+      )}
+
+      <AddSection btnText={'Add competition'} event={handleToggle} />
     </>
   )
 }

@@ -138,8 +138,6 @@ export function Form({
 
       <SkillsList />
 
-      <AddSection btnText={'Add competition'} />
-
       <div>
         <AddSection
           title={'Add section'}

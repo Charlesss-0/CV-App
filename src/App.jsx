@@ -114,16 +114,15 @@ export default function App() {
 
   const mapLinks = (links) => {
     return links.map((link, i) => (
-      <div key={i}>
-        <a
-          href={link.url}
-          target="_blank"
-          rel="noreferrer"
-          className="underline text-[#0766AD]"
-        >
-          {link.label}
-        </a>
-      </div>
+      <a
+        key={i}
+        href={link.url}
+        target="_blank"
+        rel="noreferrer"
+        className="underline text-[#435585]"
+      >
+        {link.label}
+      </a>
     ))
   }
 
