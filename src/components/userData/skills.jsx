@@ -2,21 +2,23 @@ import { useState } from 'react'
 import { AddSection } from './section'
 
 export function SkillsList() {
-  const [skills, setSkills] = useState([
-    'Adaptability',
-    'Visual Design Skills',
-    'Database Management',
-    'Knowledgable in User Interface/User Experience',
-    'Javascript',
-    'React',
-    'HTML',
-    'CSS'
-  ])
+  const [skills, setSkills] = useState([])
+
+  const [inputValue, setInputValue] = useState('')
 
   const [isToggle, setIsToggle] = useState(false)
 
   const handleToggle = () => {
     setIsToggle(true)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (inputValue.trim() !== '') {
+      setSkills((prev) => [...prev, inputValue])
+      setInputValue('')
+    }
   }
 
   return (
@@ -47,19 +49,26 @@ export function SkillsList() {
                 "
           >
             {skill}
-            <i className="fi fi-rr-plus-small flex"></i>
           </li>
         ))}
       </ul>
 
       {isToggle ? (
-        <label className="flex gap-[0.5rem] mb-[1rem]">
-          <input
-            type="text"
-            className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
-          />
-          <button className="bg-[#afafaf55] px-[1rem] rounded-lg">Add</button>
-        </label>
+        <form onSubmit={handleSubmit}>
+          <label className="flex gap-[0.5rem] mb-[1rem]">
+            <input
+              type="text"
+              className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-[#afafaf55] px-[1rem] rounded-lg"
+            >
+              Add
+            </button>
+          </label>
+        </form>
       ) : (
         ''
       )}
