@@ -3,13 +3,11 @@ import { AddSection } from './section'
 
 export function SkillsList() {
   const [skills, setSkills] = useState([])
-
   const [inputValue, setInputValue] = useState('')
-
   const [isToggle, setIsToggle] = useState(false)
 
   const handleToggle = () => {
-    setIsToggle(true)
+    setIsToggle(!isToggle)
   }
 
   const handleSubmit = (e) => {
@@ -18,6 +16,7 @@ export function SkillsList() {
     if (inputValue.trim() !== '') {
       setSkills((prev) => [...prev, inputValue])
       setInputValue('')
+      setIsToggle(false)
     }
   }
 
@@ -28,17 +27,17 @@ export function SkillsList() {
             flex
             flex-wrap
             gap-2
-            mb-[1.5rem]
             "
       >
-        {skills.map((skill) => (
+        {skills.map((skill, index) => (
           <li
-            key={skill}
+            key={index}
             className="
                 bg-[#F5F7F8] 
                 border-solid border-[1px] border-[#afafaf]
                 p-[0.5rem] 
                 px-[1rem] 
+                mb-[1rem]
                 rounded-lg 
                 flex 
                 items-center 
@@ -54,12 +53,13 @@ export function SkillsList() {
       </ul>
 
       {isToggle ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mt-[1rem]">
           <label className="flex gap-[0.5rem] mb-[1rem]">
             <input
               type="text"
               className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
               onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
             />
             <button
               type="submit"
