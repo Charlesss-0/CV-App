@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import { AddSection } from './section'
 
-export function SkillsList() {
+export function SkillsList({ skillOnChange, submit }) {
   const [skills, setSkills] = useState([])
   const [inputValue, setInputValue] = useState('')
-  const [isToggle, setIsToggle] = useState(false)
+  const [isToggled, setIsToggled] = useState(false)
 
   const handleToggle = () => {
-    setIsToggle(!isToggle)
+    setIsToggled(!isToggled)
   }
 
   const handleSubmit = (e) => {
@@ -16,8 +17,12 @@ export function SkillsList() {
     if (inputValue.trim() !== '') {
       setSkills((prev) => [...prev, inputValue])
       setInputValue('')
-      setIsToggle(false)
+      setIsToggled(false)
     }
+  }
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value)
   }
 
   return (
@@ -52,14 +57,22 @@ export function SkillsList() {
         ))}
       </ul>
 
-      {isToggle ? (
-        <form onSubmit={handleSubmit} className="mt-[1rem]">
+      {isToggled ? (
+        <form
+          onSubmit={(e) => {
+            handleSubmit(e)
+            submit(e)
+          }}
+          className="mt-[1rem]"
+        >
           <label className="flex gap-[0.5rem] mb-[1rem]">
             <input
               type="text"
               className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
-              onChange={(e) => setInputValue(e.target.value)}
-              value={inputValue}
+              onChange={(e) => {
+                handleChange(e)
+                skillOnChange(e)
+              }}
             />
             <button
               type="submit"

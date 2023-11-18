@@ -24,6 +24,18 @@ export default function App() {
     }))
   }
 
+  const store = (setEvent, arr, e) => {
+    setEvent([...arr, e.target.value])
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (skillInput.trim() !== '') {
+      setSkills((skill) => [...skill, skillInput])
+    }
+  }
+
   const [prevJobPosition, setPrevJobPosition] = useState([])
   const [prevJobName, setPrevJobName] = useState([])
   const [startDate, setStartDate] = useState([])
@@ -39,9 +51,8 @@ export default function App() {
   const [label, setLabel] = useState([])
   const [url, setUrl] = useState([])
 
-  const handlePrev = (setEvent, arr, e) => {
-    setEvent([...arr, e.target.value])
-  }
+  const [skillInput, setSkillInput] = useState('')
+  const [skills, setSkills] = useState([])
 
   const prevPositions = prevJobPosition.map((position, index) => {
     return {
@@ -126,6 +137,10 @@ export default function App() {
     ))
   }
 
+  const mapSkills = (skills) => {
+    return skills.map((skill, i) => <li key={i}>{skill}</li>)
+  }
+
   const cityCountry =
     userInput.city !== '' && userInput.country !== ''
       ? `${userInput.city}, ${userInput.country}`
@@ -144,22 +159,22 @@ export default function App() {
         city={(e) => handleChange('city', e)}
         country={(e) => handleChange('country', e)}
         profileDesc={(e) => handleChange('profileDesc', e)}
-        prevJobTitle={(e) => handlePrev(setPrevJobPosition, prevJobPosition, e)}
-        prevEmployer={(e) => handlePrev(setPrevJobName, prevJobName, e)}
-        startDate={(e) => handlePrev(setStartDate, startDate, e)}
-        endDate={(e) => handlePrev(setEndDate, endDate, e)}
-        description={(e) => handlePrev(setDescription, description, e)}
-        prevEntity={(e) => handlePrev(setEntity, entity, e)}
-        prevQualification={(e) =>
-          handlePrev(setQualification, qualification, e)
-        }
-        trainingStart={(e) => handlePrev(setTrainingStart, trainingStart, e)}
-        trainingEnd={(e) => handlePrev(setTrainingEnd, trainingEnd, e)}
+        prevJobTitle={(e) => store(setPrevJobPosition, prevJobPosition, e)}
+        prevEmployer={(e) => store(setPrevJobName, prevJobName, e)}
+        startDate={(e) => store(setStartDate, startDate, e)}
+        endDate={(e) => store(setEndDate, endDate, e)}
+        description={(e) => store(setDescription, description, e)}
+        prevEntity={(e) => store(setEntity, entity, e)}
+        prevQualification={(e) => store(setQualification, qualification, e)}
+        trainingStart={(e) => store(setTrainingStart, trainingStart, e)}
+        trainingEnd={(e) => store(setTrainingEnd, trainingEnd, e)}
         trainingDescription={(e) =>
-          handlePrev(setTrainingDescription, trainingDescription, e)
+          store(setTrainingDescription, trainingDescription, e)
         }
-        label={(e) => handlePrev(setLabel, label, e)}
-        url={(e) => handlePrev(setUrl, url, e)}
+        label={(e) => store(setLabel, label, e)}
+        url={(e) => store(setUrl, url, e)}
+        skillOnChange={(e) => setSkillInput(e.target.value)}
+        submit={(e) => handleSubmit(e)}
       />
 
       <ResumeTemplate
@@ -173,6 +188,7 @@ export default function App() {
         jobHistory={mapJobHistory(prevPositions)}
         training={mapTrainingItem(prevTraining)}
         label={mapLinks(links)}
+        skills={mapSkills(skills)}
       />
     </main>
   )

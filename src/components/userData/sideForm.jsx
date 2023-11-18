@@ -28,7 +28,9 @@ export function Form({
   trainingEnd,
   trainingDescription,
   label,
-  url
+  url,
+  skillOnChange,
+  submit
 }) {
   const [prevJob, setPrevJob] = useState([])
   const [training, setTraining] = useState([])
@@ -136,7 +138,7 @@ export function Form({
         `}
       />
 
-      <SkillsList />
+      <SkillsList skillOnChange={skillOnChange} submit={submit} />
 
       <div>
         <AddSection

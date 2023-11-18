@@ -92,7 +92,7 @@ export function SideContent({ email, phone, cityCountry, skills, label }) {
       </div>
 
       {skills ? <Title text={'Skills'} /> : ''}
-      <div>{skills}</div>
+      <ul className="px-[1.8rem] list-disc">{skills}</ul>
 
       {label ? <Title text={'Links'} /> : ''}
       <div className="px-[0.8rem] flex flex-col">{label}</div>
