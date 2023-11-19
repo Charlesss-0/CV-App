@@ -15,7 +15,8 @@ export function ResumeTemplate({
   skills,
   jobHistory,
   training,
-  label
+  label,
+  customList
 }) {
   return (
     <>
@@ -43,6 +44,7 @@ export function ResumeTemplate({
               prevJobName={prevJobName}
               jobHistory={jobHistory}
               training={training}
+              customList={customList}
             />
           </div>
         </div>

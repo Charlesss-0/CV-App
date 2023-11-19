@@ -189,6 +189,7 @@ export default function App() {
         training={mapTrainingItem(prevTraining)}
         label={mapLinks(links)}
         skills={mapSkills(skills)}
+        // customList={customList}
       />
     </main>
   )

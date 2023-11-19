@@ -6,7 +6,8 @@ export function Main({
   profileDescription,
   jobTitle,
   jobHistory,
-  training
+  training,
+  customList
 }) {
   return (
     <div
@@ -67,6 +68,8 @@ export function Main({
       >
         {training}
       </div>
+
+      <div>{customList}</div>
     </div>
   )
 }

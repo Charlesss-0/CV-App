@@ -35,6 +35,12 @@ export function Form({
   const [prevJob, setPrevJob] = useState([])
   const [training, setTraining] = useState([])
   const [links, setLinks] = useState([])
+  const [customList, setCustomList] = useState([])
+  console.log(customList.map((section) => section))
+
+  const handleCustomListChange = (newList) => {
+    setCustomList(newList)
+  }
 
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
@@ -140,6 +146,12 @@ export function Form({
 
       <SkillsList skillOnChange={skillOnChange} submit={submit} />
 
+      <ul>
+        {customList.map((section) => {
+          return <li key={section.key}>{section.component}</li>
+        })}
+      </ul>
+
       <div>
         <AddSection
           title={'Add section'}
@@ -148,7 +160,10 @@ export function Form({
           }
         />
 
-        <CustomSectionPicker />
+        <CustomSectionPicker
+          customList={customList}
+          onCustomListChange={handleCustomListChange}
+        />
       </div>
     </div>
   )
