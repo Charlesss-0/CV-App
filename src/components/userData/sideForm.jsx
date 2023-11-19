@@ -2,7 +2,7 @@
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
-import { AddCustomSection } from './custom'
+import { CustomSectionPicker } from './custom'
 import { AddJob } from './experience'
 import { AddTraining } from './training'
 import { useState } from 'react'
@@ -148,7 +148,7 @@ export function Form({
           }
         />
 
-        <AddCustomSection />
+        <CustomSectionPicker />
       </div>
     </div>
   )

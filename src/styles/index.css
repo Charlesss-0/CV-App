@@ -1,6 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 
 input:focus,
 textarea:focus {

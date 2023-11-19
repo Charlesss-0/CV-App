@@ -1,6 +1,7 @@
-// CustomSec component renders a list of custom sections that can be added.
-export function AddCustomSection() {
-  const custom = [
+/* eslint-disable react/prop-types */
+// CustomSectionPicker component renders a list of customizable sections that can be added.
+export function CustomSectionPicker({ customList }) {
+  const customizableSections = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
     { name: 'Extracurricular activities', icon: 'fi fi-sr-seedling' },
     { name: 'Hobbies', icon: 'fi fi-sr-puzzle-alt' },
@@ -10,29 +11,32 @@ export function AddCustomSection() {
     { name: 'Language', icon: 'fi fi-sr-language' }
   ]
 
+  const addToList = () => {}
+
   return (
     <ul className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
-      {custom.map((sec) => (
+      {customizableSections.map((section) => (
         <li
-          key={sec.icon}
+          key={section.icon}
           className="
-                  flex 
-                  items-center 
-                  gap-[0.5rem] 
-                  p-[0.4rem] 
-                  rounded-lg 
-                  border-solid 
-                  border-[1px] 
-                  border-[#afafaf] 
-                  cursor-pointer
-                  transition-all
-                  delay-[.05s]
-                  ease-in-out
-                  hover:text-[#0174BE]
-                  "
+            flex 
+            items-center 
+            gap-[0.5rem] 
+            p-[0.4rem] 
+            rounded-lg 
+            border-solid 
+            border-[1px] 
+            border-[#afafaf] 
+            cursor-pointer
+            transition-all
+            delay-[.05s]
+            ease-in-out
+            hover:text-[#0174BE]
+            "
+          onClick={addToList}
         >
-          <i className={`${sec.icon} text-[#0174BE] flex`}></i>
-          {sec.name}
+          <i className={`${section.icon} text-[#0174BE] flex`}></i>
+          {section.name}
         </li>
       ))}
     </ul>
