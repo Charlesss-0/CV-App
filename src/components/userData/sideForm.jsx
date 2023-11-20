@@ -36,7 +36,6 @@ export function Form({
   const [training, setTraining] = useState([])
   const [links, setLinks] = useState([])
   const [customList, setCustomList] = useState([])
-  console.log(customList.map((section) => section))
 
   const handleCustomListChange = (newList) => {
     setCustomList(newList)

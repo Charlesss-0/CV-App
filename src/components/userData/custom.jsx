@@ -15,8 +15,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
     const updatedList = [
       ...customList,
       {
-        icon: section.name,
-        component: getComponent(section.name),
+        icon: section.icon,
+        component: getComponent(section.icon),
         key: customList.length
       }
     ]
@@ -25,13 +25,13 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
 
   const getComponent = (icon) => {
     const componentMap = {
-      'Custom section': CustomComponent1,
-      'Extracurricular activities': CustomComponent2,
-      Hobbies: CustomComponent3,
-      Reference: CustomComponent4,
-      Courses: CustomComponent5,
-      Practices: CustomComponent6,
-      Language: CustomComponent7
+      'fi fi-sr-settings-sliders': <CustomComponent1 />,
+      'fi fi-sr-seedling': <CustomComponent2 />,
+      'fi fi-sr-puzzle-alt': <CustomComponent3 />,
+      'fi fi-sr-person-circle-check': <CustomComponent4 />,
+      'fi fi-sr-book-copy': <CustomComponent5 />,
+      'fi fi-sr-trophy-star': <CustomComponent6 />,
+      'fi fi-sr-language': <CustomComponent7 />
     }
 
     return componentMap[icon]
