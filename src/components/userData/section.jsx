@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 export function AddSection({ title, description, btnText, event, list }) {
   return (
     <>
@@ -26,7 +24,7 @@ export function AddSection({ title, description, btnText, event, list }) {
           items-center
           gap-1
           text-[#0174be]
-          cursor-pointer
+          hover:cursor-pointer
           hover:bg-[#9BBEC833]
           p-[0.5rem]
           rounded-lg

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useRef } from 'react'
 import { Contact, Title } from './helpers'
 
@@ -59,7 +58,7 @@ export function SideContent({ email, phone, cityCountry, skills, label }) {
                 p-[1rem]
                 rounded-full
                 transition-all ease-in-out delay-[.05s]
-                cursor-pointer
+                hover:cursor-pointer
                 hover:bg-[#efefefaf]
                 hover:border
                 hover:border-solid

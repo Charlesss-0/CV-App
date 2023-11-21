@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import './styles/App.css'
 import { Form } from './components/userData/sideForm'
 import { ResumeTemplate } from './components/resume/resume'
@@ -54,15 +53,26 @@ export default function App() {
   const [skillInput, setSkillInput] = useState('')
   const [skills, setSkills] = useState([])
 
-  const prevPositions = prevJobPosition.map((position, index) => {
-    return {
-      position: position,
-      employer: prevJobName[index],
-      start: startDate[index],
-      end: endDate[index],
-      description: description[index]
-    }
-  })
+  const [inputTitle, setInputTitle] = useState([])
+  const [customEntity, setCustomEntity] = useState([])
+
+  const prevPositionsList = (
+    prevJobPositions,
+    prevJobName,
+    startDate,
+    endDate,
+    description
+  ) => {
+    return prevJobPositions.map((position, index) => {
+      return {
+        position: position,
+        employer: prevJobName[index],
+        start: startDate[index],
+        end: endDate[index],
+        description: description[index]
+      }
+    })
+  }
 
   const prevTraining = entity.map((entity, index) => {
     return {
@@ -81,26 +91,13 @@ export default function App() {
     }
   })
 
-  const mapJobHistory = (jobs) => {
-    return jobs.map((job, index) => (
-      <div key={index}>
-        {!job.position && !job.employer ? (
-          ''
-        ) : (
-          <>
-            {job.employer && job.position && (
-              <p className="font-semibold text-[1.1rem]">
-                {job.position} at {job.employer} <br />
-                <span className="font-normal text-[1rem]">
-                  {job.start && job.end ? `${job.start} to ${job.end}` : ''}
-                </span>
-              </p>
-            )}
-            <p>{job.description}</p>
-          </>
-        )}
-      </div>
-    ))
+  const customList = (inputTitle, customEntity) => {
+    return inputTitle.map((title, index) => {
+      return {
+        title: title,
+        entity: customEntity[index]
+      }
+    })
   }
 
   const mapTrainingItem = (trainings) => {
@@ -175,6 +172,8 @@ export default function App() {
         url={(e) => store(setUrl, url, e)}
         skillOnChange={(e) => setSkillInput(e.target.value)}
         submit={(e) => handleSubmit(e)}
+        entity={(e) => store(setCustomEntity, customEntity, e)}
+        inputTitle={(e) => store(setInputTitle, inputTitle, e)}
       />
 
       <ResumeTemplate
@@ -185,12 +184,81 @@ export default function App() {
         email={userInput.email}
         phone={userInput.phone}
         cityCountry={cityCountry}
-        jobHistory={mapJobHistory(prevPositions)}
+        jobHistory={mapJobHistory(
+          prevPositionsList(
+            prevJobPosition,
+            prevJobName,
+            startDate,
+            endDate,
+            description
+          )
+        )}
         training={mapTrainingItem(prevTraining)}
         label={mapLinks(links)}
         skills={mapSkills(skills)}
-        // customList={customList}
+        customList={mapCustomList(customList(inputTitle, customEntity))}
       />
     </main>
   )
+}
+
+function mapJobHistory(jobs) {
+  return jobs.map((job, index) => {
+    const content =
+      job.position && job.employer ? (
+        <p className="font-semibold text-[1.1rem]">
+          {job.position} at {job.employer} <br />
+          {job.start && job.end ? (
+            <span className="font-normal text-[1rem]">
+              {job.start} to {job.end}
+            </span>
+          ) : (
+            <span className="font-normal text-[1rem]">
+              {job.start} {job.end}
+            </span>
+          )}
+        </p>
+      ) : (
+        <p className="font-semibold text-[1.1rem]">
+          {job.position} {job.employer} <br />
+          {job.start && job.end ? (
+            <span className="font-normal text-[1rem]">
+              {job.start} to {job.end}
+            </span>
+          ) : (
+            <span className="font-normal text-[1rem]">
+              {job.start} {job.end}
+            </span>
+          )}
+        </p>
+      )
+
+    return (
+      <div key={index}>
+        {content}
+        <p>{job.description}</p>
+      </div>
+    )
+  })
+}
+
+function mapCustomList(customList) {
+  return customList.map((list, index) => {
+    const content =
+      list.title && list.entity ? (
+        <span>
+          {list.title} in {list.entity}
+        </span>
+      ) : (
+        <span>
+          {list.title} {list.entity}
+        </span>
+      )
+
+    return (
+      <p key={index} className={list.title || list.entity ? 'text-[1rem]' : ''}>
+        {content}
+      </p>
+    )
+  })
 }

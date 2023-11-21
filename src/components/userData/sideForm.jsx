@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
@@ -30,7 +29,9 @@ export function Form({
   label,
   url,
   skillOnChange,
-  submit
+  submit,
+  entity,
+  inputTitle
 }) {
   const [prevJob, setPrevJob] = useState([])
   const [training, setTraining] = useState([])
@@ -162,6 +163,8 @@ export function Form({
         <CustomSectionPicker
           customList={customList}
           onCustomListChange={handleCustomListChange}
+          inputTitle={inputTitle}
+          entity={entity}
         />
       </div>
     </div>

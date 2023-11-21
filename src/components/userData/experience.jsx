@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react'
 
 // AddJob component allows the user to add new experiences.
@@ -33,7 +32,7 @@ export function AddJob({
           flex
           justify-between
           items-center
-          cursor-pointer
+          hover:cursor-pointer
           "
       >
         {title !== '' && place !== ''

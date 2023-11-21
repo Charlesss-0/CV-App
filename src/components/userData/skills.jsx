@@ -47,7 +47,7 @@ export function SkillsList({ skillOnChange, submit }) {
                 flex 
                 items-center 
                 gap-[0.5rem] 
-                cursor-pointer
+                hover:cursor-pointer
                 hover:text-[#0174BE]
                 transition-all delay-[.05s] ease-in-out
                 "

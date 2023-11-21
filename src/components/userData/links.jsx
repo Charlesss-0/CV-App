@@ -26,7 +26,7 @@ export function AddLink({ label, url }) {
             flex
             justify-between
             items-center
-            cursor-pointer
+            hover:cursor-pointer
             "
       >
         {labelType}
