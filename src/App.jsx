@@ -74,15 +74,27 @@ export default function App() {
     })
   }
 
-  const prevTraining = entity.map((entity, index) => {
-    return {
-      entity: entity,
-      qualification: qualification[index],
-      start: trainingStart[index],
-      end: trainingEnd[index],
-      description: trainingDescription[index]
-    }
-  })
+  const prevTraining = (entity, qualification, start, end, description) => {
+    return entity.map((entity, index) => {
+      return {
+        entity: entity,
+        qualification: qualification[index],
+        start: start[index],
+        end: end[index],
+        description: description[index]
+      }
+    })
+  }
+
+  // const prevTraining = entity.map((entity, index) => {
+  //   return {
+  //     entity: entity,
+  //     qualification: qualification[index],
+  //     start: trainingStart[index],
+  //     end: trainingEnd[index],
+  //     description: trainingDescription[index]
+  //   }
+  // })
 
   const links = label.map((link, index) => {
     return {
@@ -98,44 +110,6 @@ export default function App() {
         entity: customEntity[index]
       }
     })
-  }
-
-  const mapTrainingItem = (trainings) => {
-    return trainings.map((training, index) => (
-      <div key={index}>
-        {training.qualification && training.entity && (
-          <>
-            <p className="font-semibold text-[1.1rem]">
-              {training.qualification} in {training.entity} <br />
-              <span className="font-normal text-[1rem]">
-                {training.start && training.end
-                  ? `${training.start} to ${training.end}`
-                  : ''}
-              </span>
-            </p>
-            <p>{training.description}</p>
-          </>
-        )}
-      </div>
-    ))
-  }
-
-  const mapLinks = (links) => {
-    return links.map((link, i) => (
-      <a
-        key={i}
-        href={link.url}
-        target="_blank"
-        rel="noreferrer"
-        className="underline text-[#435585]"
-      >
-        {link.label}
-      </a>
-    ))
-  }
-
-  const mapSkills = (skills) => {
-    return skills.map((skill, i) => <li key={i}>{skill}</li>)
   }
 
   const cityCountry =
@@ -193,7 +167,15 @@ export default function App() {
             description
           )
         )}
-        training={mapTrainingItem(prevTraining)}
+        training={mapTrainingItem(
+          prevTraining(
+            entity,
+            qualification,
+            trainingStart,
+            trainingEnd,
+            trainingDescription
+          )
+        )}
         label={mapLinks(links)}
         skills={mapSkills(skills)}
         customList={mapCustomList(customList(inputTitle, customEntity))}
@@ -240,6 +222,44 @@ function mapJobHistory(jobs) {
       </div>
     )
   })
+}
+
+function mapTrainingItem(trainings) {
+  return trainings.map((training, index) => (
+    <div key={index}>
+      {training.qualification && training.entity && (
+        <>
+          <p className="font-semibold text-[1.1rem]">
+            {training.qualification} in {training.entity} <br />
+            <span className="font-normal text-[1rem]">
+              {training.start && training.end
+                ? `${training.start} to ${training.end}`
+                : ''}
+            </span>
+          </p>
+          <p>{training.description}</p>
+        </>
+      )}
+    </div>
+  ))
+}
+
+function mapLinks(links) {
+  return links.map((link, i) => (
+    <a
+      key={i}
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className="underline text-[#435585]"
+    >
+      {link.label}
+    </a>
+  ))
+}
+
+function mapSkills(skills) {
+  return skills.map((skill, i) => <li key={i}>{skill}</li>)
 }
 
 function mapCustomList(customList) {

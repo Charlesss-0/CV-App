@@ -1,3 +1,5 @@
+// import { useForm } from 'react-hook-form'
+
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
@@ -33,6 +35,8 @@ export function Form({
   entity,
   inputTitle
 }) {
+  // const [register, handleSubmit] = useForm()
+
   const [prevJob, setPrevJob] = useState([])
   const [training, setTraining] = useState([])
   const [links, setLinks] = useState([])

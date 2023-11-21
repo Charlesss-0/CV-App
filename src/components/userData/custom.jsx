@@ -1,12 +1,7 @@
-import { UserForm } from './form'
+import { UserForm } from './formTest'
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
-export function CustomSectionPicker({
-  customList,
-  onCustomListChange,
-  entity,
-  inputTitle
-}) {
+export function CustomSectionPicker({ customList, onCustomListChange }) {
   const customizableSections = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
     { name: 'Extracurricular activities', icon: 'fi fi-sr-seedling' },
@@ -31,9 +26,7 @@ export function CustomSectionPicker({
 
   const getComponent = (icon) => {
     const componentMap = {
-      'fi fi-sr-settings-sliders': (
-        <CustomComponent1 inputTitle={inputTitle} entity={entity} />
-      ),
+      'fi fi-sr-settings-sliders': <CustomComponent1 />,
       'fi fi-sr-seedling': <CustomComponent2 />,
       'fi fi-sr-puzzle-alt': <CustomComponent3 />,
       'fi fi-sr-person-circle-check': <CustomComponent4 />,
@@ -75,11 +68,38 @@ export function CustomSectionPicker({
   )
 }
 
-function CustomComponent1({ entity, inputTitle }) {
+function CustomComponent1() {
   return (
     <>
       <h1 className="text-[1.5rem] mt-[2rem] font-semibold">Add Title</h1>
-      <UserForm inputTitle={inputTitle} entity={entity} />
+      <UserForm
+        fieldOne={[
+          {
+            name: 'title',
+            label: 'Title',
+            type: 'text',
+            maxLength: '50'
+          },
+          {
+            name: 'place',
+            label: 'Place',
+            type: 'text',
+            maxLength: '50'
+          }
+        ]}
+        fieldTwo={[
+          {
+            name: 'start',
+            label: 'Start',
+            type: 'date'
+          },
+          {
+            name: 'end',
+            label: 'End',
+            type: 'date'
+          }
+        ]}
+      />
     </>
   )
 }
