@@ -1,95 +1,100 @@
 import { useState } from 'react'
+import styled from 'styled-components'
 
-const FORM_STYLES = `
-    border-solid 
-    border 
-    border-[#afafaf] 
-    rounded-[10px] 
-    p-[0.5rem] 
-    mb-[1rem]
+const Form = styled.div`
+  border: solid 1px;
+  border-color: #afafaf;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
 `
 
-const TOGGLE_STYLES = `
-    bg-[#cacaca55] 
-    p-[1rem] 
-    rounded-[5px] 
-    flex 
-    justify-between 
-    items-center 
-    hover:cursor-pointer 
-    hover:bg-[#cacaca88]
-    transition-all 
-    delay-[.05s] 
-    ease-in-out
+const Toggle = styled.h1`
+  background: #cacaca55;
+  padding: 1rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.05s ease-in-out;
+
+  &:hover {
+    background: #cacaca88;
+  }
 `
 
-const FIELD_STYLES = `
-    flex
-    flex-col
-    gap-[1rem]
-    text-[#4f4f4f]
-    font-semibold
-    [&>div]:flex
-    [&>div]:gap-[1rem]
-    [&>div>label]:w-full
-    [&>div>label>input]:w-full
-    [&>div>label]:flex
-    [&>div>label]:flex-col
-    [&>div>label]:gap-[0.5rem]
-    [&>div>label>input]:p-[0.8rem]
-    [&>div>label>input]:rounded-lg
-    [&>div>label>input]:text-[#393939]
-    [&>div>label>input]:font-normal
+const Fieldset = styled.fieldset`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #4f4f4f;
+  font-weight: 600;
+
+  & > div {
+    display: flex;
+    gap: 1rem;
+
+    & > label {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      & > input {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 10px;
+        color: #393939;
+        font-weight: 400;
+      }
+    }
+  }
 `
 
 export function UserForm({ fieldOne, fieldTwo }) {
-  const [isToggled, setIsToggled] = useState(false)
-  const [title, setTitle] = useState('')
-  const [entity, setEntity] = useState('')
+  const [isToggled, setIsToggled] = useState(true)
+  const [formState, setFormState] = useState({
+    title: '',
+    entity: ''
+  })
 
   const handleToggle = () => {
     setIsToggled(!isToggled)
   }
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value)
-  }
-
-  const handlePlaceChange = (e) => {
-    setEntity(e.target.value)
+  const handleChange = (e, name) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: e.target.value
+    }))
   }
 
   return (
-    <div className={FORM_STYLES}>
-      <h1 onClick={handleToggle} className={TOGGLE_STYLES}>
-        {title !== '' && entity !== ''
-          ? `${title} at ${entity}`
-          : title !== '' || entity !== ''
-          ? `${title} ${entity}`
+    <Form>
+      <Toggle onClick={handleToggle}>
+        {formState.title !== '' && formState.entity !== ''
+          ? `${formState.title} at ${formState.entity}`
+          : formState.title !== '' || formState.entity !== ''
+          ? `${formState.title} ${formState.entity}`
           : ''}
         <i
           className={`fi ${
             isToggled ? 'fi-rr-angle-small-down' : 'fi-rr-angle-small-up'
           } flex justify-end text-[1.3rem] grow`}
         ></i>
-      </h1>
+      </Toggle>
 
       <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
-        <fieldset className={FIELD_STYLES}>
+        <Fieldset>
           <div>
             {fieldOne.map((field) => (
-              <label key={field.name}>
+              <label key={field.id}>
                 {field.label} <br />
                 <input
                   type={field.type}
                   maxLength={field.maxLength}
-                  onChange={(e) => {
-                    if (field.name === 'title') {
-                      handleTitleChange(e)
-                    } else if (field.name === 'place') {
-                      handlePlaceChange(e)
-                    }
-                  }}
+                  onChange={(e) => handleChange(e, field.name)}
                 />
               </label>
             ))}
@@ -97,7 +102,7 @@ export function UserForm({ fieldOne, fieldTwo }) {
 
           <div>
             {fieldTwo.map((field) => (
-              <label key={field.name}>
+              <label key={field.id}>
                 {field.label} <br />
                 <input type={field.type} />
               </label>
@@ -111,8 +116,8 @@ export function UserForm({ fieldOne, fieldTwo }) {
             maxLength={200}
             placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
           />
-        </fieldset>
+        </Fieldset>
       </form>
-    </div>
+    </Form>
   )
 }

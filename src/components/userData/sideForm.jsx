@@ -1,13 +1,15 @@
 // import { useForm } from 'react-hook-form'
+import { v4 as uuid } from 'uuid'
 
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
-import { SkillsList } from './skills'
-import { CustomSectionPicker } from './custom'
-import { AddJob } from './experience'
-import { AddTraining } from './training'
+// import { SkillsList } from './skills'
+// import { CustomSectionPicker } from './customSection'
+// import { AddJob } from './experience'
+// import { AddTraining } from './training'
 import { useState } from 'react'
-import { AddLink } from './links'
+// import { AddLink } from './links'
+import { UserForm } from './form'
 
 export function Form({
   jobTitle,
@@ -17,34 +19,34 @@ export function Form({
   phone,
   city,
   country,
-  profileDesc,
-  prevJobTitle,
-  prevEmployer,
-  startDate,
-  endDate,
-  description,
-  prevEntity,
-  prevQualification,
-  trainingStart,
-  trainingEnd,
-  trainingDescription,
-  label,
-  url,
-  skillOnChange,
-  submit,
-  entity,
-  inputTitle
+  profileDesc
+  // prevJobTitle,
+  // prevEmployer,
+  // startDate,
+  // endDate,
+  // description
+  // prevEntity,
+  // prevQualification,
+  // trainingStart,
+  // trainingEnd,
+  // trainingDescription,
+  // label,
+  // url,
+  // skillOnChange,
+  // submit,
+  // entity,
+  // inputTitle
 }) {
   // const [register, handleSubmit] = useForm()
 
   const [prevJob, setPrevJob] = useState([])
-  const [training, setTraining] = useState([])
-  const [links, setLinks] = useState([])
-  const [customList, setCustomList] = useState([])
+  // const [training, setTraining] = useState([])
+  // const [links, setLinks] = useState([])
+  // const [customList, setCustomList] = useState([])
 
-  const handleCustomListChange = (newList) => {
-    setCustomList(newList)
-  }
+  // const handleCustomListChange = (newList) => {
+  //   setCustomList(newList)
+  // }
 
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
@@ -75,7 +77,7 @@ export function Form({
         country={country}
         profileDesc={profileDesc}
       />
-
+      {/* 
       <AddSection
         title={'Work Experience'}
         description={`
@@ -100,8 +102,68 @@ export function Form({
           )
         }
         list={prevJob}
+      /> */}
+
+      <AddSection
+        fields={[
+          {
+            title: 'Work Experience',
+            description: `Please indicate your relevant experience from the last 10 years and dates in this section.
+            Start with the most recent position.`,
+            btnText: 'Add job',
+            onClick: () =>
+              handleEvent(
+                setPrevJob,
+                prevJob,
+                <UserForm
+                  fieldOne={[
+                    {
+                      name: 'title',
+                      label: 'Job title',
+                      type: 'text',
+                      maxLength: '50',
+                      id: uuid()
+                    },
+                    {
+                      name: 'entity',
+                      label: 'Employer',
+                      type: 'text',
+                      maxLength: '50',
+                      id: uuid()
+                    }
+                  ]}
+                  fieldTwo={[
+                    {
+                      name: 'start',
+                      label: 'Start date',
+                      type: 'date',
+                      id: uuid()
+                    },
+                    {
+                      name: 'end',
+                      label: 'End date',
+                      type: 'date',
+                      id: uuid()
+                    }
+                  ]}
+                />
+                // <AddJob
+                //   expTitle={'Job title'}
+                //   expTitleTwo={'Employer'}
+                //   key={prevJob.length}
+                //   prevJobTitle={prevJobTitle}
+                //   prevEmployer={prevEmployer}
+                //   start={startDate}
+                //   end={endDate}
+                //   description={description}
+                // />
+              ),
+            list: prevJob
+          }
+        ]}
       />
 
+      {/* 
       <AddSection
         title={'Training'}
         description={`If applicable, include your most recent academic achievements and dates here.`}
@@ -170,7 +232,7 @@ export function Form({
           inputTitle={inputTitle}
           entity={entity}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -1,43 +1,57 @@
-export function AddSection({ title, description, btnText, event, list }) {
+const STYLES = {
+  title: `
+    text-[1.5rem] 
+    mt-[2rem] 
+    font-semibold
+  `,
+  description: `
+    mb-[1.5rem] 
+    text-[#5a5a5a]
+  `,
+  button: `
+    flex
+    items-center
+    gap-1
+    text-[#0174be]
+    hover:cursor-pointer
+    hover:bg-[#9BBEC833]
+    p-[0.5rem]
+    rounded-lg
+    transition-all 
+    ease-in-out 
+    delay-100
+  `
+}
+
+export function AddSection({ fields }) {
   return (
     <>
-      {title ? (
-        <h1 className="text-[1.5rem] mt-[2rem] font-semibold">{title}</h1>
-      ) : (
-        ''
-      )}
+      {fields.map((field) => (
+        <h1 key={field.title} className={STYLES.title}>
+          {field.title}
+        </h1>
+      ))}
 
-      {description ? (
-        <p className="mb-[1.5rem] text-[#5a5a5a]">{description}</p>
-      ) : (
-        ''
-      )}
+      {fields.map((field) => (
+        <p key={field.description} className={STYLES.description}>
+          {field.description}
+        </p>
+      ))}
 
-      {Array.isArray(list)
-        ? list.map((item, index) => <div key={index}>{item}</div>)
-        : ''}
+      {fields.map((field) => (
+        <div key={field.list}>{field.list}</div>
+      ))}
 
-      {btnText ? (
+      {fields.map((field) => (
         <button
-          className="
-          flex
-          items-center
-          gap-1
-          text-[#0174be]
-          hover:cursor-pointer
-          hover:bg-[#9BBEC833]
-          p-[0.5rem]
-          rounded-lg
-          transition-all ease-in-out delay-100
-      "
-          onClick={event}
+          key={field.btnText}
+          className={STYLES.button}
+          onClick={field.onClick}
         >
           <i className="fi fi-rr-plus-small flex"></i>
-          {btnText}
+          {field.btnText}
         </button>
-      ) : (
-        ''
-      )}
+      ))}
     </>
   )
 }

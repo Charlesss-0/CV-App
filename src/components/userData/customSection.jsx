@@ -1,4 +1,10 @@
-import { UserForm } from './formTest'
+import { AddCustomSection } from './customComponents/custom'
+import { AddActivities } from './customComponents/activities'
+import { AddHobbies } from './customComponents/hobbies'
+import { AddReferences } from './customComponents/references'
+import { AddCourses } from './customComponents/courses'
+import { AddPractices } from './customComponents/practices'
+import { AddLanguages } from './customComponents/languages'
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
 export function CustomSectionPicker({ customList, onCustomListChange }) {
@@ -26,13 +32,13 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
 
   const getComponent = (icon) => {
     const componentMap = {
-      'fi fi-sr-settings-sliders': <CustomComponent1 />,
-      'fi fi-sr-seedling': <CustomComponent2 />,
-      'fi fi-sr-puzzle-alt': <CustomComponent3 />,
-      'fi fi-sr-person-circle-check': <CustomComponent4 />,
-      'fi fi-sr-book-copy': <CustomComponent5 />,
-      'fi fi-sr-trophy-star': <CustomComponent6 />,
-      'fi fi-sr-language': <CustomComponent7 />
+      'fi fi-sr-settings-sliders': <AddCustomSection />,
+      'fi fi-sr-seedling': <AddActivities />,
+      'fi fi-sr-puzzle-alt': <AddHobbies />,
+      'fi fi-sr-person-circle-check': <AddReferences />,
+      'fi fi-sr-book-copy': <AddCourses />,
+      'fi fi-sr-trophy-star': <AddPractices />,
+      'fi fi-sr-language': <AddLanguages />
     }
 
     return componentMap[icon]
@@ -66,64 +72,4 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
       ))}
     </ul>
   )
-}
-
-function CustomComponent1() {
-  return (
-    <>
-      <h1 className="text-[1.5rem] mt-[2rem] font-semibold">Add Title</h1>
-      <UserForm
-        fieldOne={[
-          {
-            name: 'title',
-            label: 'Title',
-            type: 'text',
-            maxLength: '50'
-          },
-          {
-            name: 'place',
-            label: 'Place',
-            type: 'text',
-            maxLength: '50'
-          }
-        ]}
-        fieldTwo={[
-          {
-            name: 'start',
-            label: 'Start',
-            type: 'date'
-          },
-          {
-            name: 'end',
-            label: 'End',
-            type: 'date'
-          }
-        ]}
-      />
-    </>
-  )
-}
-
-function CustomComponent2() {
-  return <div>Hello from CustomComponent2!</div>
-}
-
-function CustomComponent3() {
-  return <div>Hello from CustomComponent3!</div>
-}
-
-function CustomComponent4() {
-  return <div>Hello from CustomComponent4!</div>
-}
-
-function CustomComponent5() {
-  return <div>Hello from CustomComponent5!</div>
-}
-
-function CustomComponent6() {
-  return <div>Hello from CustomComponent6!</div>
-}
-
-function CustomComponent7() {
-  return <div>Hello from CustomComponent7!</div>
 }
