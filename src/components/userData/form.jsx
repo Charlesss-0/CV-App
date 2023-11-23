@@ -52,31 +52,28 @@ const Fieldset = styled.fieldset`
   }
 `
 
-export function UserForm({ fieldOne, fieldTwo }) {
+export function UserForm(props) {
+  const { title, titleTwo, start, end } = props
+
   const [isToggled, setIsToggled] = useState(true)
-  const [formState, setFormState] = useState({
-    title: '',
-    entity: ''
-  })
+  const [header, setHeader] = useState('')
+  const [entity, setEntity] = useState('')
 
   const handleToggle = () => {
     setIsToggled(!isToggled)
   }
 
-  const handleChange = (e, name) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      [name]: e.target.value
-    }))
+  const handleChange = (e, setEvent) => {
+    setEvent(e.target.value)
   }
 
   return (
     <Form>
       <Toggle onClick={handleToggle}>
-        {formState.title !== '' && formState.entity !== ''
-          ? `${formState.title} at ${formState.entity}`
-          : formState.title !== '' || formState.entity !== ''
-          ? `${formState.title} ${formState.entity}`
+        {header !== '' && entity !== ''
+          ? `${header} at ${entity}`
+          : header !== '' || entity !== ''
+          ? `${header} ${entity}`
           : ''}
         <i
           className={`fi ${
@@ -88,25 +85,35 @@ export function UserForm({ fieldOne, fieldTwo }) {
       <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
         <Fieldset>
           <div>
-            {fieldOne.map((field) => (
-              <label key={field.id}>
-                {field.label} <br />
-                <input
-                  type={field.type}
-                  maxLength={field.maxLength}
-                  onChange={(e) => handleChange(e, field.name)}
-                />
-              </label>
-            ))}
+            <label>
+              {title} <br />
+              <input
+                type="text"
+                maxLength={50}
+                onChange={(e) => handleChange(e, setHeader)}
+              />
+            </label>
+
+            <label>
+              {titleTwo} <br />
+              <input
+                type="text"
+                maxLength={50}
+                onChange={(e) => handleChange(e, setEntity)}
+              />
+            </label>
           </div>
 
           <div>
-            {fieldTwo.map((field) => (
-              <label key={field.id}>
-                {field.label} <br />
-                <input type={field.type} />
-              </label>
-            ))}
+            <label>
+              {start} <br />
+              <input type="date" />
+            </label>
+
+            <label>
+              {end} <br />
+              <input type="date" />
+            </label>
           </div>
 
           <p className="text-[#5a5a5a] mt-[0.5rem]">Description</p>

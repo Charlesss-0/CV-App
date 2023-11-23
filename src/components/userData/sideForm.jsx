@@ -116,47 +116,14 @@ export function Form({
                 setPrevJob,
                 prevJob,
                 <UserForm
-                  fieldOne={[
-                    {
-                      name: 'title',
-                      label: 'Job title',
-                      type: 'text',
-                      maxLength: '50',
-                      id: uuid()
-                    },
-                    {
-                      name: 'entity',
-                      label: 'Employer',
-                      type: 'text',
-                      maxLength: '50',
-                      id: uuid()
-                    }
-                  ]}
-                  fieldTwo={[
-                    {
-                      name: 'start',
-                      label: 'Start date',
-                      type: 'date',
-                      id: uuid()
-                    },
-                    {
-                      name: 'end',
-                      label: 'End date',
-                      type: 'date',
-                      id: uuid()
-                    }
-                  ]}
+                  key={prevJob.length}
+                  id={uuid()}
+                  title={'Job title'}
+                  titleTwo={'Employer'}
+                  start={'Start date'}
+                  end={'End date'}
+                  description={'Description'}
                 />
-                // <AddJob
-                //   expTitle={'Job title'}
-                //   expTitleTwo={'Employer'}
-                //   key={prevJob.length}
-                //   prevJobTitle={prevJobTitle}
-                //   prevEmployer={prevEmployer}
-                //   start={startDate}
-                //   end={endDate}
-                //   description={description}
-                // />
               ),
             list: prevJob
           }

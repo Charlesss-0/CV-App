@@ -1,41 +1,40 @@
-const STYLES = {
-  title: `
-    text-[1.5rem] 
-    mt-[2rem] 
-    font-semibold
-  `,
-  description: `
-    mb-[1.5rem] 
-    text-[#5a5a5a]
-  `,
-  button: `
-    flex
-    items-center
-    gap-1
-    text-[#0174be]
-    hover:cursor-pointer
-    hover:bg-[#9BBEC833]
-    p-[0.5rem]
-    rounded-lg
-    transition-all 
-    ease-in-out 
-    delay-100
-  `
-}
+import styled from 'styled-components'
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  font-weight: 600;
+`
+
+const Description = styled.p`
+  margin-bottom: 1.5rem;
+  color: #5a5a5a;
+`
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #0174be;
+  padding: 0.5rem;
+  border-radius: 10px;
+  transition: all 0.05s ease-in-out;
+
+  &:hover {
+    background: #9bbec833;
+    cursor: pointer;
+  }
+`
 
 export function AddSection({ fields }) {
   return (
     <>
       {fields.map((field) => (
-        <h1 key={field.title} className={STYLES.title}>
-          {field.title}
-        </h1>
+        <Title key={field.title}>{field.title}</Title>
       ))}
 
       {fields.map((field) => (
-        <p key={field.description} className={STYLES.description}>
-          {field.description}
-        </p>
+        <Description key={field.description}>{field.description}</Description>
       ))}
 
       {fields.map((field) => (
@@ -43,14 +42,10 @@ export function AddSection({ fields }) {
       ))}
 
       {fields.map((field) => (
-        <button
-          key={field.btnText}
-          className={STYLES.button}
-          onClick={field.onClick}
-        >
+        <Button key={field.btnText} onClick={field.onClick}>
           <i className="fi fi-rr-plus-small flex"></i>
           {field.btnText}
-        </button>
+        </Button>
       ))}
     </>
   )
