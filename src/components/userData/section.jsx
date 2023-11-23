@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 
 const Title = styled.h1`
@@ -30,22 +31,23 @@ export function AddSection({ fields }) {
   return (
     <>
       {fields.map((field) => (
-        <Title key={field.title}>{field.title}</Title>
-      ))}
+        <React.Fragment key={field.title}>
+          <Title key={field.title}>{field.title}</Title>
 
-      {fields.map((field) => (
-        <Description key={field.description}>{field.description}</Description>
-      ))}
+          <Description key={field.description}>
+            {' '}
+            {field.description}
+          </Description>
 
-      {fields.map((field) => (
-        <div key={field.list}>{field.list}</div>
-      ))}
+          {field.list.map((item) => (
+            <div key={item.key}>{item}</div>
+          ))}
 
-      {fields.map((field) => (
-        <Button key={field.btnText} onClick={field.onClick}>
-          <i className="fi fi-rr-plus-small flex"></i>
-          {field.btnText}
-        </Button>
+          <Button key={field.btnText} onClick={field.onClick}>
+            <i className="fi fi-rr-plus-small flex"></i>
+            {field.btnText}
+          </Button>
+        </React.Fragment>
       ))}
     </>
   )

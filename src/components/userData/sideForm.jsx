@@ -111,18 +111,17 @@ export function Form({
             description: `Please indicate your relevant experience from the last 10 years and dates in this section.
             Start with the most recent position.`,
             btnText: 'Add job',
+            id: uuid(),
             onClick: () =>
               handleEvent(
                 setPrevJob,
                 prevJob,
                 <UserForm
-                  key={prevJob.length}
-                  id={uuid()}
+                  key={uuid()}
                   title={'Job title'}
                   titleTwo={'Employer'}
                   start={'Start date'}
                   end={'End date'}
-                  description={'Description'}
                 />
               ),
             list: prevJob
