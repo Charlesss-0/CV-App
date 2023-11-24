@@ -27,7 +27,6 @@ const Toggle = styled.h1`
 const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   color: #4f4f4f;
   font-weight: 600;
 
@@ -39,7 +38,6 @@ const Fieldset = styled.fieldset`
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
 
       & > input {
         width: 100%;
@@ -53,7 +51,7 @@ const Fieldset = styled.fieldset`
 `
 
 export function UserForm(props) {
-  const { title, titleTwo, start, end } = props
+  const { title, titleTwo } = props
 
   const [isToggled, setIsToggled] = useState(true)
   const [header, setHeader] = useState('')
@@ -67,14 +65,32 @@ export function UserForm(props) {
     setEvent(e.target.value)
   }
 
+  const handleTitle = () => {
+    if (
+      title === 'Job title' &&
+      titleTwo === 'Employer' &&
+      header !== '' &&
+      entity !== ''
+    ) {
+      return `${header} at ${entity}`
+    } else if (
+      title === 'Training' &&
+      titleTwo === 'Qualification' &&
+      header !== '' &&
+      entity !== ''
+    ) {
+      return `${entity} in ${header}`
+    } else if (title === 'Label') {
+      return `${header}`
+    } else {
+      return `${header} ${entity}`
+    }
+  }
+
   return (
     <Form>
       <Toggle onClick={handleToggle}>
-        {header !== '' && entity !== ''
-          ? `${header} at ${entity}`
-          : header !== '' || entity !== ''
-          ? `${header} ${entity}`
-          : ''}
+        {handleTitle()}
         <i
           className={`fi ${
             isToggled ? 'fi-rr-angle-small-down' : 'fi-rr-angle-small-up'
@@ -82,8 +98,12 @@ export function UserForm(props) {
         ></i>
       </Toggle>
 
-      <form className={`${isToggled ? 'hidden' : 'block mt-[1rem]'}`}>
-        <Fieldset>
+      <form className={isToggled ? 'hidden' : 'block mt-[1rem]'}>
+        <Fieldset
+          className={
+            title === 'Job title' || title === 'Training' ? 'gap-[1.2rem]' : ''
+          }
+        >
           <div>
             <label>
               {title} <br />
@@ -105,24 +125,36 @@ export function UserForm(props) {
           </div>
 
           <div>
-            <label>
-              {start} <br />
-              <input type="date" />
-            </label>
+            {title === 'Job title' || title === 'Training' ? (
+              <>
+                <label>
+                  Start Date <br />
+                  <input type="date" />
+                </label>
 
-            <label>
-              {end} <br />
-              <input type="date" />
-            </label>
+                <label>
+                  End Date <br />
+                  <input type="date" />
+                </label>
+              </>
+            ) : (
+              ''
+            )}
           </div>
 
-          <p className="text-[#5a5a5a] mt-[0.5rem]">Description</p>
+          {title === 'Job title' || title === 'Training' ? (
+            <>
+              <p className="text[#5a5a5a] mt-[0.5rem]">Description</p>
 
-          <textarea
-            className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
-            maxLength={200}
-            placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
-          />
+              <textarea
+                className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
+                maxLength={200}
+                placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
+              />
+            </>
+          ) : (
+            ''
+          )}
         </Fieldset>
       </form>
     </Form>

@@ -20,7 +20,7 @@ export function Form({
   city,
   country,
   profileDesc
-  // prevJobTitle,
+  // jobTitle,
   // prevEmployer,
   // startDate,
   // endDate,
@@ -39,9 +39,9 @@ export function Form({
 }) {
   // const [register, handleSubmit] = useForm()
 
-  const [prevJob, setPrevJob] = useState([])
-  // const [training, setTraining] = useState([])
-  // const [links, setLinks] = useState([])
+  const [job, setJob] = useState([])
+  const [training, setTraining] = useState([])
+  const [links, setLinks] = useState([])
   // const [customList, setCustomList] = useState([])
 
   // const handleCustomListChange = (newList) => {
@@ -77,32 +77,6 @@ export function Form({
         country={country}
         profileDesc={profileDesc}
       />
-      {/* 
-      <AddSection
-        title={'Work Experience'}
-        description={`
-          Please indicate your relevant experience from the last 10 years and dates in this section.
-          Start with the most recent position.
-        `}
-        btnText={'Add job'}
-        event={() =>
-          handleEvent(
-            setPrevJob,
-            prevJob,
-            <AddJob
-              expTitle={'Job title'}
-              expTitleTwo={'Employer'}
-              key={prevJob.length}
-              prevJobTitle={prevJobTitle}
-              prevEmployer={prevEmployer}
-              start={startDate}
-              end={endDate}
-              description={description}
-            />
-          )
-        }
-        list={prevJob}
-      /> */}
 
       <AddSection
         fields={[
@@ -114,20 +88,78 @@ export function Form({
             id: uuid(),
             onClick: () =>
               handleEvent(
-                setPrevJob,
-                prevJob,
+                setJob,
+                job,
                 <UserForm
                   key={uuid()}
                   title={'Job title'}
                   titleTwo={'Employer'}
-                  start={'Start date'}
-                  end={'End date'}
                 />
               ),
-            list: prevJob
+            list: job
           }
         ]}
       />
+
+      <AddSection
+        fields={[
+          {
+            title: 'Training',
+            description: `If applicable, include your most recent academic achievements and dates here.`,
+            btnText: 'Add training',
+            id: uuid(),
+            onClick: () =>
+              handleEvent(
+                setTraining,
+                training,
+                <UserForm
+                  key={uuid()}
+                  title={'Training'}
+                  titleTwo={'Qualification'}
+                />
+              ),
+            list: training
+          }
+        ]}
+      />
+
+      <AddSection
+        fields={[
+          {
+            title: 'Links to social networks and websites',
+            description: `
+              Now you can add links to the sites you want employers to see.
+              It can be a link to your portfolio, your LinkedIn profile, or your personal website.
+            `,
+            btnText: 'Add link',
+            id: uuid(),
+            onClick: () =>
+              handleEvent(
+                setLinks,
+                links,
+                <UserForm key={uuid()} title={'Label'} titleTwo={'URL'} />
+              ),
+            list: links
+          }
+        ]}
+      />
+
+      {/* 
+      <AddSection
+        fields={[
+          {
+            title: 'Competencies',
+            description: `
+              Make a list of your personal skills and experience levels
+              to see your strengths and optimize your keywords.
+            `,
+            id: uuid(),
+            list: links
+          }
+        ]}
+      /> */}
+      {/* 
+      <SkillsList /> */}
 
       {/* 
       <AddSection
