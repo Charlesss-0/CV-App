@@ -20,7 +20,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error', // Enforce rules of hooks
     'react-hooks/exhaustive-deps': 'warn', // Warn about missing dependencies in useEffect
     'react-refresh/only-export-components': [
-      'warn',
+      'off',
       { allowConstantExport: true }
     ]
   }

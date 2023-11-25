@@ -12,7 +12,7 @@ const Description = styled.p`
   color: #5a5a5a;
 `
 
-const Button = styled.button`
+export const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -28,27 +28,24 @@ const Button = styled.button`
 `
 
 export function AddSection({ fields }) {
-  return (
-    <>
-      {fields.map((field) => (
-        <React.Fragment key={field.title}>
+  return fields
+    ? fields.map((field, index) => (
+        <React.Fragment key={index}>
           <Title key={field.title}>{field.title}</Title>
 
-          <Description key={field.description}>
-            {' '}
-            {field.description}
-          </Description>
+          <Description key={field.description}>{field.description}</Description>
 
-          {field.list.map((item) => (
-            <div key={item.key}>{item}</div>
-          ))}
+          {field.list
+            ? field.list.map((item, i) => <div key={i}>{item}</div>)
+            : null}
 
-          <Button key={field.btnText} onClick={field.onClick}>
-            <i className="fi fi-rr-plus-small flex"></i>
-            {field.btnText}
-          </Button>
+          {field.btnText ? (
+            <Button key={field.btnText} onClick={field.onClick}>
+              <i className="fi fi-rr-plus-small flex"></i>
+              {field.btnText}
+            </Button>
+          ) : null}
         </React.Fragment>
-      ))}
-    </>
-  )
+      ))
+    : null
 }

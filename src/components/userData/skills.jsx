@@ -1,15 +1,11 @@
-/* eslint-disable react/prop-types */
+// import styled from 'styled-components'
 import { useState } from 'react'
-import { AddSection } from './section'
+import { Button } from './section'
 
-export function SkillsList({ skillOnChange, submit }) {
+export function SkillsList() {
   const [skills, setSkills] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [isToggled, setIsToggled] = useState(false)
-
-  const handleToggle = () => {
-    setIsToggled(!isToggled)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -34,34 +30,36 @@ export function SkillsList({ skillOnChange, submit }) {
             gap-2
             "
       >
-        {skills.map((skill, index) => (
-          <li
-            key={index}
-            className="
-                bg-[#F5F7F8] 
-                border-solid border-[1px] border-[#afafaf]
-                p-[0.5rem] 
-                px-[1rem] 
-                mb-[1rem]
-                rounded-lg 
-                flex 
-                items-center 
-                gap-[0.5rem] 
-                hover:cursor-pointer
-                hover:text-[#0174BE]
-                transition-all delay-[.05s] ease-in-out
+        {Array.isArray(skills)
+          ? skills.map((skill, index) => (
+              <li
+                key={index}
+                className="
+                  bg-[#f5f7f8]
+                  border-solid border-[1px] border-[#afafaf]
+                  p-[0.5rem]
+                  px-[1rem]
+                  mb-[1rem]
+                  rounded-lg
+                  flex
+                  items-center
+                  gap-[0.5rem]
+                  hover:cursor-pointer
+                  hover:text-[#0174be]
+                  transition-all delay-[.05s] ease-in-out
                 "
-          >
-            {skill}
-          </li>
-        ))}
+              >
+                {skill}
+              </li>
+            ))
+          : null}
       </ul>
 
       {isToggled ? (
         <form
           onSubmit={(e) => {
             handleSubmit(e)
-            submit(e)
+            // submit(e)
           }}
           className="mt-[1rem]"
         >
@@ -71,7 +69,7 @@ export function SkillsList({ skillOnChange, submit }) {
               className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
               onChange={(e) => {
                 handleChange(e)
-                skillOnChange(e)
+                // skillOnChange(e)
               }}
             />
             <button
@@ -86,7 +84,14 @@ export function SkillsList({ skillOnChange, submit }) {
         ''
       )}
 
-      <AddSection btnText={'Add competition'} event={handleToggle} />
+      <Button
+        onClick={() => {
+          setIsToggled(!isToggled)
+        }}
+      >
+        <i className="fi fi-rr-plus-small flex"></i>
+        Add skill
+      </Button>
     </>
   )
 }

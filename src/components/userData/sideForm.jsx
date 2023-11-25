@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
-// import { SkillsList } from './skills'
+import { SkillsList } from './skills'
 // import { CustomSectionPicker } from './customSection'
 // import { AddJob } from './experience'
 // import { AddTraining } from './training'
@@ -144,7 +144,6 @@ export function Form({
         ]}
       />
 
-      {/* 
       <AddSection
         fields={[
           {
@@ -152,54 +151,14 @@ export function Form({
             description: `
               Make a list of your personal skills and experience levels
               to see your strengths and optimize your keywords.
-            `,
-            id: uuid(),
-            list: links
+            `
           }
         ]}
-      /> */}
-      {/* 
-      <SkillsList /> */}
-
-      {/* 
-      <AddSection
-        title={'Training'}
-        description={`If applicable, include your most recent academic achievements and dates here.`}
-        btnText={'Add training'}
-        event={() =>
-          handleEvent(
-            setTraining,
-            training,
-            <AddTraining
-              key={training.length}
-              prevEntity={prevEntity}
-              prevQualification={prevQualification}
-              start={trainingStart}
-              end={trainingEnd}
-              trainingDescription={trainingDescription}
-            />
-          )
-        }
-        list={training}
       />
 
-      <AddSection
-        title={'Links to social networks and websites'}
-        description={`
-          Now you can add links to the sites you want employers to see.
-          It can be a link to your portfolio, your LinkedIn profile, or your personal website.
-        `}
-        btnText={'Add link'}
-        event={() =>
-          handleEvent(
-            setLinks,
-            links,
-            <AddLink key={links.length} label={label} url={url} />
-          )
-        }
-        list={links}
-      />
+      <SkillsList />
 
+      {/*       
       <AddSection
         title={'Competencies'}
         description={`
