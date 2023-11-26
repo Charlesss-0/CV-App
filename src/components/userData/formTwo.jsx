@@ -50,7 +50,7 @@ const Fieldset = styled.fieldset`
   }
 `
 
-export function UserForm({ fields }) {
+export function FormTwo({ fields }) {
   const [isToggled, setIsToggled] = useState(true)
   const [header, setHeader] = useState('')
   const [entity, setEntity] = useState('')
@@ -64,7 +64,7 @@ export function UserForm({ fields }) {
   }
 
   const handleTitle = () => {
-    const headerTitle = fields.map((field) => {
+    fields.map((field) => {
       if (
         field.title === 'Job title' &&
         field.titleTwo === 'Employer' &&
@@ -85,8 +85,6 @@ export function UserForm({ fields }) {
         return `${header} ${entity}`
       }
     })
-
-    return headerTitle
   }
 
   return (

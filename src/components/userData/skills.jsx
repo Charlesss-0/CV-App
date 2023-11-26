@@ -30,11 +30,10 @@ export function SkillsList() {
             gap-2
             "
       >
-        {Array.isArray(skills)
-          ? skills.map((skill, index) => (
-              <li
-                key={index}
-                className="
+        {skills.map((skill, index) => (
+          <li
+            key={index}
+            className="
                   bg-[#f5f7f8]
                   border-solid border-[1px] border-[#afafaf]
                   p-[0.5rem]
@@ -48,11 +47,10 @@ export function SkillsList() {
                   hover:text-[#0174be]
                   transition-all delay-[.05s] ease-in-out
                 "
-              >
-                {skill}
-              </li>
-            ))
-          : null}
+          >
+            {skill}
+          </li>
+        ))}
       </ul>
 
       {isToggled ? (

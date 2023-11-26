@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid'
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
-// import { CustomSectionPicker } from './customSection'
+import { CustomSectionPicker } from './customSection'
 // import { AddJob } from './experience'
 // import { AddTraining } from './training'
 import { useState } from 'react'
@@ -42,11 +42,11 @@ export function Form({
   const [job, setJob] = useState([])
   const [training, setTraining] = useState([])
   const [links, setLinks] = useState([])
-  // const [customList, setCustomList] = useState([])
+  const [customList, setCustomList] = useState([])
 
-  // const handleCustomListChange = (newList) => {
-  //   setCustomList(newList)
-  // }
+  const handleCustomListChange = (newList) => {
+    setCustomList(newList)
+  }
 
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
@@ -91,9 +91,15 @@ export function Form({
                 setJob,
                 job,
                 <UserForm
-                  key={uuid()}
-                  title={'Job title'}
-                  titleTwo={'Employer'}
+                  fields={[
+                    {
+                      title: 'Job title',
+                      titleTwo: 'Employer',
+                      start: 'Start date',
+                      end: 'End date',
+                      description: 'Description'
+                    }
+                  ]}
                 />
               ),
             list: job
@@ -158,38 +164,27 @@ export function Form({
 
       <SkillsList />
 
-      {/*       
       <AddSection
-        title={'Competencies'}
-        description={`
-          Make a list of your personal skills and experience levels
-          to see your strengths and optimize your keywords.
-        `}
+        fields={[
+          {
+            title: 'Add Section',
+            description: `
+              Add a custom section to showcase your strengths on other areas
+            `
+          }
+        ]}
       />
 
-      <SkillsList skillOnChange={skillOnChange} submit={submit} />
-
       <ul>
-        {customList.map((section) => {
-          return <li key={section.key}>{section.component}</li>
-        })}
+        {customList.map((section) => (
+          <li key={section.key}>{section.component}</li>
+        ))}
       </ul>
 
-      <div>
-        <AddSection
-          title={'Add section'}
-          description={
-            'Add a custom section to showcase your strengths on other areas'
-          }
-        />
-
-        <CustomSectionPicker
-          customList={customList}
-          onCustomListChange={handleCustomListChange}
-          inputTitle={inputTitle}
-          entity={entity}
-        />
-      </div> */}
+      <CustomSectionPicker
+        customList={customList}
+        onCustomListChange={handleCustomListChange}
+      />
     </div>
   )
 }

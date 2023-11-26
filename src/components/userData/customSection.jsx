@@ -5,6 +5,19 @@ import { AddReferences } from './customComponents/references'
 import { AddCourses } from './customComponents/courses'
 import { AddPractices } from './customComponents/practices'
 import { AddLanguages } from './customComponents/languages'
+import { UserForm } from './form'
+import { FormTwo } from './formTwo'
+import styled from 'styled-components'
+
+const Li = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  border: 1px solid #afafaf;
+  transition: all 0.05s ease-in-out;
+`
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
 export function CustomSectionPicker({ customList, onCustomListChange }) {
@@ -33,9 +46,25 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
   const getComponent = (icon) => {
     const componentMap = {
       'fi fi-sr-settings-sliders': <AddCustomSection />,
-      'fi fi-sr-seedling': <AddActivities />,
-      'fi fi-sr-puzzle-alt': <AddHobbies />,
-      'fi fi-sr-person-circle-check': <AddReferences />,
+      'fi fi-sr-seedling': (
+        <UserForm title={'Activity'} titleTwo={'Description'} />
+      ),
+      'fi fi-sr-puzzle-alt': (
+        <UserForm title={'Hobby'} titleTwo={'Description'} />
+      ),
+      'fi fi-sr-person-circle-check': (
+        <FormTwo
+          fields={[
+            {
+              title: 'Reference',
+              titleTwo: 'Contact',
+              start: 'Start date',
+              end: 'End date',
+              description: 'Description'
+            }
+          ]}
+        />
+      ),
       'fi fi-sr-book-copy': <AddCourses />,
       'fi fi-sr-trophy-star': <AddPractices />,
       'fi fi-sr-language': <AddLanguages />
@@ -47,28 +76,14 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
   return (
     <ul className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
       {customizableSections.map((section) => (
-        <li
+        <Li
           key={section.icon}
-          className="
-            flex 
-            items-center 
-            gap-[0.5rem] 
-            p-[0.4rem] 
-            rounded-lg 
-            border-solid 
-            border-[1px] 
-            border-[#afafaf] 
-            hover:cursor-pointer
-            transition-all
-            delay-[.05s]
-            ease-in-out
-            hover:text-[#0174BE]
-            "
+          className="hover:cursor-pointer hover:text-[#0174BE]"
           onClick={() => addToList(section)}
         >
           <i className={`${section.icon} text-[#0174BE] flex`}></i>
           {section.name}
-        </li>
+        </Li>
       ))}
     </ul>
   )
