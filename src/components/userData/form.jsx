@@ -80,16 +80,16 @@ export function UserForm({ fields }) {
       return false
     })
 
-    switch (target) {
-      case header !== '' && entity !== '':
-        if (target.title === 'Job title') {
+    if (target) {
+      if (header !== '' && entity !== '') {
+        if (target?.title === 'Job title') {
           return `${header} at ${entity}`
-        } else if (target.title === 'Training') {
+        } else if (target?.title === 'Training') {
           return `${entity} in ${header}`
-        } else if (target.title === 'Label') {
+        } else if (target?.title === 'Label') {
           return `${header}`
         }
-        break
+      }
     }
 
     return `${header} ${entity}`
