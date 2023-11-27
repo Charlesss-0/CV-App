@@ -2,21 +2,28 @@
 import { useState } from 'react'
 import { Button } from './section'
 
+// Component for displaying a list of skills with an option to add new skills
 export function SkillsList() {
+  // State variables to manage skills, input value, and toggle for showing/hiding the input form
   const [skills, setSkills] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [isToggled, setIsToggled] = useState(false)
 
+  // Function to handle form submission when adding a new skill
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    // Check if the input value is not empty
     if (inputValue.trim() !== '') {
+      // Update the skills array with the new skill
       setSkills((prev) => [...prev, inputValue])
+      // Reset the input value and hide the input form
       setInputValue('')
       setIsToggled(false)
     }
   }
 
+  // Function to handle changes in the input field for adding new skills
   const handleChange = (e) => {
     setInputValue(e.target.value)
   }
@@ -53,6 +60,7 @@ export function SkillsList() {
         ))}
       </ul>
 
+      {/* Conditional rendering of the input form */}
       {isToggled ? (
         <form
           onSubmit={(e) => {
@@ -70,6 +78,7 @@ export function SkillsList() {
                 // skillOnChange(e)
               }}
             />
+            {/* Button to submit the form and add the new skill */}
             <button
               type="submit"
               className="bg-[#afafaf55] px-[1rem] rounded-lg"
@@ -82,6 +91,7 @@ export function SkillsList() {
         ''
       )}
 
+      {/* Button component for toggling the input form visibility */}
       <Button
         onClick={() => {
           setIsToggled(!isToggled)

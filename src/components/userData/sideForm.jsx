@@ -1,16 +1,15 @@
-// import { useForm } from 'react-hook-form'
+// Import the UUID function for generating unique identifiers
 import { v4 as uuid } from 'uuid'
 
+// Import necessary components from other files
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
 import { CustomSectionPicker } from './customSection'
-// import { AddJob } from './experience'
-// import { AddTraining } from './training'
 import { useState } from 'react'
-// import { AddLink } from './links'
 import { UserForm } from './form'
 
+// Form component definition with props
 export function Form({
   jobTitle,
   firstName,
@@ -37,22 +36,24 @@ export function Form({
   // entity,
   // inputTitle
 }) {
-  // const [register, handleSubmit] = useForm()
-
+  // State variables for different sections of the form
   const [job, setJob] = useState([])
   const [training, setTraining] = useState([])
   const [links, setLinks] = useState([])
   const [customList, setCustomList] = useState([])
 
+  // Function to handle changes in the custom section list
   const handleCustomListChange = (newList) => {
     setCustomList(newList)
   }
 
+  // Function to handle adding new items to the different sections of the form
   const handleEvent = (setEvent, arr, newArr) => {
     setEvent([...arr, newArr])
   }
 
   return (
+    // Main container for the form with styling
     <div
       className="
             bg-[#efefef] 
@@ -67,6 +68,7 @@ export function Form({
             "
       id="cv-form-section"
     >
+      {/* Contact information section */}
       <ContactInfo
         jobTitle={jobTitle}
         firstName={firstName}
@@ -78,6 +80,7 @@ export function Form({
         profileDesc={profileDesc}
       />
 
+      {/* Section for adding work experience */}
       <AddSection
         fields={[
           {
@@ -107,6 +110,7 @@ export function Form({
         ]}
       />
 
+      {/* Section for adding training information */}
       <AddSection
         fields={[
           {
@@ -119,9 +123,15 @@ export function Form({
                 setTraining,
                 training,
                 <UserForm
-                  key={uuid()}
-                  title={'Training'}
-                  titleTwo={'Qualification'}
+                  fields={[
+                    {
+                      title: 'Training',
+                      titleTwo: 'Qualification',
+                      start: 'Start date',
+                      end: 'End date',
+                      description: 'Description'
+                    }
+                  ]}
                 />
               ),
             list: training
@@ -129,6 +139,7 @@ export function Form({
         ]}
       />
 
+      {/* Section for adding links to social networks and websites */}
       <AddSection
         fields={[
           {
@@ -143,13 +154,21 @@ export function Form({
               handleEvent(
                 setLinks,
                 links,
-                <UserForm key={uuid()} title={'Label'} titleTwo={'URL'} />
+                <UserForm
+                  fields={[
+                    {
+                      title: 'Label',
+                      titleTwo: 'URL'
+                    }
+                  ]}
+                />
               ),
             list: links
           }
         ]}
       />
 
+      {/* Section for adding competencies and skills */}
       <AddSection
         fields={[
           {
@@ -162,8 +181,10 @@ export function Form({
         ]}
       />
 
+      {/* SkillsList component for displaying skills */}
       <SkillsList />
 
+      {/* Section for adding custom sections */}
       <AddSection
         fields={[
           {
@@ -175,12 +196,14 @@ export function Form({
         ]}
       />
 
+      {/* Display custom sections from the list */}
       <ul>
         {customList.map((section) => (
           <li key={section.key}>{section.component}</li>
         ))}
       </ul>
 
+      {/* CustomSectionPicker for selecting and adding custom sections */}
       <CustomSectionPicker
         customList={customList}
         onCustomListChange={handleCustomListChange}

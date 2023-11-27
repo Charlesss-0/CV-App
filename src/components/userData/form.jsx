@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+// Styled components for different parts of the form
 const Form = styled.div`
   border: solid 1px;
   border-color: #afafaf;
@@ -50,7 +51,9 @@ const Fieldset = styled.fieldset`
   }
 `
 
+// UserForm component for rendering a form with toggle functionality
 export function UserForm({ fields }) {
+  // State variables to manage toggle, header, and entity
   const [isToggled, setIsToggled] = useState(true)
   const [header, setHeader] = useState('')
   const [entity, setEntity] = useState('')
@@ -59,38 +62,42 @@ export function UserForm({ fields }) {
     setIsToggled(!isToggled)
   }
 
+  // Function to handle change in input fields
   const handleChange = (e, setEvent) => {
     setEvent(e.target.value)
   }
 
+  // Function to generate the title based on header and entity
   const handleTitle = () => {
-    const headerTitle = fields.map((field) => {
+    const target = fields.find((field) => {
       if (
-        field.title === 'Job title' &&
-        field.titleTwo === 'Employer' &&
-        header !== '' &&
-        entity !== ''
+        (field.title === 'Job title' && field.titleTwo === 'Employer') ||
+        (field.title === 'Training' && field.titleTwo === 'Qualification') ||
+        field.title === 'Label'
       ) {
-        return `${header} at ${entity}`
-      } else if (
-        field.title === 'Training' &&
-        field.titleTwo === 'Qualification' &&
-        header !== '' &&
-        entity !== ''
-      ) {
-        return `${entity} in ${header}`
-      } else if (field.title === 'Label') {
-        return `${header}`
-      } else {
-        return `${header} ${entity}`
+        return true
       }
+      return false
     })
 
-    return headerTitle
+    switch (target) {
+      case header !== '' && entity !== '':
+        if (target.title === 'Job title') {
+          return `${header} at ${entity}`
+        } else if (target.title === 'Training') {
+          return `${entity} in ${header}`
+        } else if (target.title === 'Label') {
+          return `${header}`
+        }
+        break
+    }
+
+    return `${header} ${entity}`
   }
 
   return (
     <Form>
+      {/* Toggle button for showing/hiding the form */}
       <Toggle onClick={handleToggle}>
         {handleTitle()}
         <i
@@ -100,6 +107,7 @@ export function UserForm({ fields }) {
         ></i>
       </Toggle>
 
+      {/* Form content with conditional rendering based on the toggle state */}
       <form className={isToggled ? 'hidden' : 'block mt-[1rem]'}>
         <Fieldset
           className={fields.map((field) =>
@@ -107,6 +115,7 @@ export function UserForm({ fields }) {
           )}
         >
           <div>
+            {/* Rendering input fields for each specified field in the form */}
             {fields.map((field, index) => (
               <React.Fragment key={index}>
                 <label>
@@ -131,6 +140,7 @@ export function UserForm({ fields }) {
           </div>
 
           <div>
+            {/* Rendering date input fields for start and end dates if specified */}
             {fields.map((field, index) =>
               field.start && field.end ? (
                 <React.Fragment key={index}>
@@ -148,6 +158,7 @@ export function UserForm({ fields }) {
             )}
           </div>
 
+          {/* Rendering description textarea for specified fields */}
           {fields.map(
             (field, index) =>
               field.description && (
