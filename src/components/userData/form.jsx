@@ -86,13 +86,11 @@ export function UserForm({ fields }) {
           return `${header} at ${entity}`
         } else if (target?.title === 'Training') {
           return `${entity} in ${header}`
-        } else if (target?.title === 'Label') {
-          return `${header}`
         }
       }
     }
 
-    return `${header} ${entity}`
+    return `${header}`
   }
 
   return (

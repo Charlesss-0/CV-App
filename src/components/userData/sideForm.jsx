@@ -1,13 +1,71 @@
-// Import the UUID function for generating unique identifiers
 import { v4 as uuid } from 'uuid'
+import { useState } from 'react'
+import styled from 'styled-components'
+import ContentEditable from 'react-contenteditable'
 
-// Import necessary components from other files
 import { ContactInfo } from './contact'
 import { AddSection } from './section'
 import { SkillsList } from './skills'
 import { CustomSectionPicker } from './customSection'
-import { useState } from 'react'
 import { UserForm } from './form'
+
+const EditableWrapper = styled.div`
+  display: flex;
+  font-size: 1.3rem;
+
+  & > i {
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    color: #0174be;
+  }
+
+    &:hover {
+      cursor: text;
+
+      & > i {
+        display: flex;
+      }
+    }
+
+    &:focus {
+      outline: 2px solid #0174be;
+
+      & > i {
+        display: none;
+      }
+    }
+  }
+`
+
+const Editable = ({ content, onChange }) => {
+  return (
+    <EditableWrapper>
+      <ContentEditable
+        onChange={onChange}
+        html={content}
+        className="p-[0.5rem] rounded-[5px] font-[1.3rem] items-center grow outline-none"
+      />
+      <i className="fi fi-rr-pen-circle hidden"></i>
+    </EditableWrapper>
+  )
+}
+
+const CustomSectionList = ({ section }) => {
+  const { key, component } = section
+  const title = component.props.fields[0].title
+
+  return (
+    <li key={key} className="flex flex-col">
+      {title === 'Title' ? (
+        <Editable content="Add title" />
+      ) : (
+        <span className="text-[1.3rem] font-medium p-[0.5rem]">{title}</span>
+      )}
+      {component}
+    </li>
+  )
+}
 
 // Form component definition with props
 export function Form({
@@ -19,22 +77,6 @@ export function Form({
   city,
   country,
   profileDesc
-  // jobTitle,
-  // prevEmployer,
-  // startDate,
-  // endDate,
-  // description
-  // prevEntity,
-  // prevQualification,
-  // trainingStart,
-  // trainingEnd,
-  // trainingDescription,
-  // label,
-  // url,
-  // skillOnChange,
-  // submit,
-  // entity,
-  // inputTitle
 }) {
   // State variables for different sections of the form
   const [job, setJob] = useState([])
@@ -199,7 +241,7 @@ export function Form({
       {/* Display custom sections from the list */}
       <ul>
         {customList.map((section) => (
-          <li key={section.key}>{section.component}</li>
+          <CustomSectionList key={section.key} section={section} />
         ))}
       </ul>
 

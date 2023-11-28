@@ -55,7 +55,7 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Title',
-              titleTwo: 'Description',
+              titleTwo: 'Entity',
               description: 'Description'
             }
           ]}
@@ -66,7 +66,7 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Activity',
-              titleTwo: 'Description',
+              titleTwo: 'Entity',
               description: 'Description'
             }
           ]}
@@ -77,7 +77,7 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Hobby',
-              titleTwo: 'Description',
+              titleTwo: 'Entity',
               description: 'Description'
             }
           ]}

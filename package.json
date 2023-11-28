@@ -31,6 +31,8 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "jest": "^29.7.0",
     "postcss": "^8.4.31",
+    "react-contenteditable": "^3.3.7",
+    "sanitize-html": "^2.11.0",
     "tailwindcss": "^3.3.5",
     "vite": "^4.4.5"
   }
