@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from './section'
 
 // Component for displaying a list of skills with an option to add new skills
-export function SkillsList() {
+export function SkillsList({ skillOnChange, submit }) {
   // State variables to manage skills, input value, and toggle for showing/hiding the input form
   const [skills, setSkills] = useState([])
   const [inputValue, setInputValue] = useState('')
@@ -65,7 +65,7 @@ export function SkillsList() {
         <form
           onSubmit={(e) => {
             handleSubmit(e)
-            // submit(e)
+            submit(e)
           }}
           className="mt-[1rem]"
         >
@@ -75,7 +75,7 @@ export function SkillsList() {
               className="bg-[transparent] border-[#afafaf] border p-[0.3rem] rounded-lg grow"
               onChange={(e) => {
                 handleChange(e)
-                // skillOnChange(e)
+                skillOnChange(e)
               }}
             />
             {/* Button to submit the form and add the new skill */}

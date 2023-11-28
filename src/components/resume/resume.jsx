@@ -133,20 +133,23 @@ export function ResumeTemplate({ fields }) {
 
               {fields.map((field, index) => (
                 <React.Fragment key={index}>
-                  {field.skills && (
+                  {field.skills.length > 0 ? (
                     <>
                       <Title text={'Skills'} />
                       <ul className="px-[1.8rem] list-disc">{field.skills}</ul>
                     </>
+                  ) : (
+                    ''
                   )}
-                  {field.label && (
+
+                  {field.links.length > 0 ? (
                     <>
                       <Title text={'Links'} />
                       <div className="px-[0.8rem] flex flex-col">
-                        {field.label}
+                        {field.links}
                       </div>
                     </>
-                  )}
+                  ) : null}
                 </React.Fragment>
               ))}
             </SideContent>
@@ -206,7 +209,7 @@ export function ResumeTemplate({ fields }) {
               </div>
 
               <h1 className="my-[1rem]">
-                {/* {field.training.length > 0 ? 'Education' : ''} */}
+                {field.training.length > 0 ? 'Education' : ''}
               </h1>
               <div
                 className="
@@ -218,8 +221,9 @@ export function ResumeTemplate({ fields }) {
                     [&>div]:text-[1rem]
                     "
               >
-                {field.Fragmenttraining}
+                {field.training}
               </div>
+
               <div>{field.customList}</div>
             </MainContent>
           ))}

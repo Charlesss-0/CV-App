@@ -94,13 +94,13 @@ export default function App() {
     setEvent([...arr, e.target.value])
   }
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
+  const handleSubmit = (e, skillInput) => {
+    e.preventDefault()
 
-  //   if (skillInput.trim() !== '') {
-  //     setSkills((skill) => [...skill, skillInput])
-  //   }
-  // }
+    if (skillInput.trim() !== '') {
+      setSkills((skill) => [...skill, skillInput])
+    }
+  }
 
   const [prevJobPosition, setPrevJobPosition] = useState([])
   const [prevJobName, setPrevJobName] = useState([])
@@ -114,14 +114,14 @@ export default function App() {
   const [trainingEnd, setTrainingEnd] = useState([])
   const [trainingDescription, setTrainingDescription] = useState([])
 
-  // const [label, setLabel] = useState([])
-  // const [url, setUrl] = useState([])
+  const [label, setLabel] = useState([])
+  const [url, setUrl] = useState([])
 
-  // const [skillInput, setSkillInput] = useState('')
-  // const [skills, setSkills] = useState([])
+  const [skillInput, setSkillInput] = useState('')
+  const [skills, setSkills] = useState([])
 
-  // const [inputTitle, setInputTitle] = useState([])
-  // const [customEntity, setCustomEntity] = useState([])
+  const [inputTitle, setInputTitle] = useState([])
+  const [customEntity, setCustomEntity] = useState([])
 
   const prevPositionsList = () => {
     return prevJobPosition.map((position, index) => {
@@ -147,31 +147,23 @@ export default function App() {
     })
   }
 
-  // const prevTraining = entity.map((entity, index) => {
-  //   return {
-  //     entity: entity,
-  //     qualification: qualification[index],
-  //     start: trainingStart[index],
-  //     end: trainingEnd[index],
-  //     description: trainingDescription[index]
-  //   }
-  // })
+  const linksList = () => {
+    return label.map((label, index) => {
+      return {
+        label: label,
+        url: url[index]
+      }
+    })
+  }
 
-  // const links = label.map((link, index) => {
-  //   return {
-  //     label: link,
-  //     url: url[index]
-  //   }
-  // })
-
-  // const customList = (inputTitle, customEntity) => {
-  //   return inputTitle.map((title, index) => {
-  //     return {
-  //       title: title,
-  //       entity: customEntity[index]
-  //     }
-  //   })
-  // }
+  const custumListObj = () => {
+    return inputTitle.map((title, index) => {
+      return {
+        title: title,
+        entity: customEntity[index]
+      }
+    })
+  }
 
   const cityCountry =
     userInput.city !== '' && userInput.country !== ''
@@ -335,7 +327,14 @@ export default function App() {
                     fields={[
                       {
                         title: 'Label',
-                        titleTwo: 'URL'
+                        titleTwo: 'URL',
+                        onChange: (e) => {
+                          if (e.target.name === 'Label') {
+                            store(setLabel, label, e)
+                          } else if (e.target.name === 'URL') {
+                            store(setUrl, url, e)
+                          }
+                        }
                       }
                     ]}
                   />
@@ -349,7 +348,7 @@ export default function App() {
         <AddSection
           fields={[
             {
-              title: 'Competencies',
+              title: 'Skills',
               description: `
               Make a list of your personal skills and experience levels
               to see your strengths and optimize your keywords.
@@ -359,7 +358,10 @@ export default function App() {
         />
 
         {/* SkillsList component for displaying skills */}
-        <SkillsList />
+        <SkillsList
+          skillOnChange={(e) => setSkillInput(e.target.value)}
+          submit={(e) => handleSubmit(e, skillInput)}
+        />
 
         {/* Section for adding custom sections */}
         <AddSection
@@ -398,7 +400,10 @@ export default function App() {
             cityCountry: cityCountry,
             profileDesc: userInput.profileDesc,
             jobHistory: mapJobHistory(prevPositionsList()),
-            training: mapTrainingItem(prevTraining())
+            training: mapTrainingItem(prevTraining()),
+            links: mapLinks(linksList()),
+            skills: mapSkills(skills),
+            customList: mapCustomList(custumListObj())
           }
         ]}
       />
@@ -466,41 +471,41 @@ function mapTrainingItem(trainings) {
   ))
 }
 
-// function mapLinks(links) {
-//   return links.map((link, i) => (
-//     <a
-//       key={i}
-//       href={link.url}
-//       target="_blank"
-//       rel="noreferrer"
-//       className="underline text-[#435585]"
-//     >
-//       {link.label}
-//     </a>
-//   ))
-// }
+function mapLinks(links) {
+  return links.map((link, i) => (
+    <a
+      key={i}
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      className="underline text-[#435585]"
+    >
+      {link.label}
+    </a>
+  ))
+}
 
-// function mapSkills(skills) {
-//   return skills.map((skill, i) => <li key={i}>{skill}</li>)
-// }
+function mapSkills(skills) {
+  return skills.map((skill, i) => <li key={i}>{skill}</li>)
+}
 
-// function mapCustomList(customList) {
-//   return customList.map((list, index) => {
-//     const content =
-//       list.title && list.entity ? (
-//         <span>
-//           {list.title} in {list.entity}
-//         </span>
-//       ) : (
-//         <span>
-//           {list.title} {list.entity}
-//         </span>
-//       )
+function mapCustomList(customList) {
+  return customList.map((list, index) => {
+    const content =
+      list.title && list.entity ? (
+        <span>
+          {list.title} in {list.entity}
+        </span>
+      ) : (
+        <span>
+          {list.title} {list.entity}
+        </span>
+      )
 
-//     return (
-//       <p key={index} className={list.title || list.entity ? 'text-[1rem]' : ''}>
-//         {content}
-//       </p>
-//     )
-//   })
-// }
+    return (
+      <p key={index} className={list.title || list.entity ? 'text-[1rem]' : ''}>
+        {content}
+      </p>
+    )
+  })
+}
