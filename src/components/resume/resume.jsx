@@ -170,11 +170,9 @@ export function ResumeTemplate({ fields }) {
                 <h1>{field.firstName}</h1>
                 <h1>{field.lastName}</h1>
               </div>
-
               <h2 className="text-[1.5rem] font-normal text-[#5f5f5f]">
                 {field.jobTitle}
               </h2>
-
               <h3
                 className="
                     text-[1rem] 
@@ -187,20 +185,24 @@ export function ResumeTemplate({ fields }) {
                 {field.profileDesc}
               </h3>
 
-              <h1 className="my-[1rem]">
-                {/* {field.jobHistory.length > 0 ? 'Experience' : ''} */}
-              </h1>
-              <div
-                className="
-                    flex 
-                    flex-col
-                    gap-[1rem]
-                    text-[#5f5f5f] 
-                    font-normal
-                    [&>div]:text-[1rem]
-                    "
-              >
-                {field.jobHistory}
+              <div>
+                {field.jobHistory ? (
+                  <>
+                    <h1 className="my-[1rem]">Experience</h1>
+                    <div
+                      className="
+                        flex 
+                        flex-col
+                        gap-[1rem]
+                        text-[#5f5f5f] 
+                        font-normal
+                        [&>div]:text-[1rem]
+                        "
+                    >
+                      {field.jobHistory}
+                    </div>
+                  </>
+                ) : null}
               </div>
 
               <h1 className="my-[1rem]">
@@ -218,7 +220,6 @@ export function ResumeTemplate({ fields }) {
               >
                 {field.Fragmenttraining}
               </div>
-
               <div>{field.customList}</div>
             </MainContent>
           ))}

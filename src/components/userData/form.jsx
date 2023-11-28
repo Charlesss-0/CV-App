@@ -153,12 +153,20 @@ export function UserForm({ fields }) {
                 <React.Fragment key={index}>
                   <label>
                     {field.end} <br />
-                    <input type="date" />
+                    <input
+                      name={field.start}
+                      type="date"
+                      onChange={(e) => field.onChange(e)}
+                    />
                   </label>
 
                   <label>
                     {field.end} <br />
-                    <input type="date" />
+                    <input
+                      name={field.end}
+                      type="date"
+                      onChange={(e) => field.onChange(e)}
+                    />
                   </label>
                 </React.Fragment>
               ) : null
@@ -177,7 +185,9 @@ export function UserForm({ fields }) {
                   <textarea
                     className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
                     maxLength={200}
+                    name={field.description}
                     placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
+                    onChange={(e) => field.onChange(e)}
                   />
                 </React.Fragment>
               )
