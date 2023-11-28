@@ -25,9 +25,10 @@ const Toggle = styled.h1`
   }
 `
 
-const Fieldset = styled.fieldset`
+export const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   color: #4f4f4f;
   font-weight: 600;
 
@@ -121,7 +122,11 @@ export function UserForm({ fields }) {
                   <input
                     type="text"
                     maxLength={50}
-                    onChange={(e) => handleChange(e, setHeader)}
+                    name={field.title}
+                    onChange={(e) => {
+                      handleChange(e, setHeader)
+                      field.onChange(e)
+                    }}
                   />
                 </label>
 
@@ -130,7 +135,11 @@ export function UserForm({ fields }) {
                   <input
                     type="text"
                     maxLength={50}
-                    onChange={(e) => handleChange(e, setEntity)}
+                    name={field.titleTwo}
+                    onChange={(e) => {
+                      handleChange(e, setEntity)
+                      field.onChange(e)
+                    }}
                   />
                 </label>
               </React.Fragment>

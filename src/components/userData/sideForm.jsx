@@ -142,7 +142,14 @@ export function Form({
                       titleTwo: 'Employer',
                       start: 'Start date',
                       end: 'End date',
-                      description: 'Description'
+                      description: 'Description',
+                      onChange: (e) => {
+                        if (e.target.name === 'Job title') {
+                          console.log('Job title: ', e.target.value)
+                        } else if (e.target.name === 'Employer') {
+                          console.log('Employer: ', e.target.value)
+                        }
+                      }
                     }
                   ]}
                 />
@@ -171,7 +178,14 @@ export function Form({
                       titleTwo: 'Qualification',
                       start: 'Start date',
                       end: 'End date',
-                      description: 'Description'
+                      description: 'Description',
+                      onChange: (e) => {
+                        if (e.target.name === 'Training') {
+                          console.log('Training: ', e.target.value)
+                        } else if (e.target.name === 'Qualification') {
+                          console.log('Qualification: ', e.target.value)
+                        }
+                      }
                     }
                   ]}
                 />
