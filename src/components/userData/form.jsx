@@ -117,31 +117,35 @@ export function UserForm({ fields }) {
             {/* Rendering input fields for each specified field in the form */}
             {fields.map((field, index) => (
               <React.Fragment key={index}>
-                <label>
-                  {field.title} <br />
-                  <input
-                    type="text"
-                    maxLength={50}
-                    name={field.title}
-                    onChange={(e) => {
-                      handleChange(e, setHeader)
-                      field.onChange(e)
-                    }}
-                  />
-                </label>
+                {field.title ? (
+                  <label>
+                    {field.title} <br />
+                    <input
+                      type="text"
+                      maxLength={50}
+                      name={field.title}
+                      onChange={(e) => {
+                        handleChange(e, setHeader)
+                        field.onChange(e)
+                      }}
+                    />
+                  </label>
+                ) : null}
 
-                <label>
-                  {field.titleTwo} <br />
-                  <input
-                    type="text"
-                    maxLength={50}
-                    name={field.titleTwo}
-                    onChange={(e) => {
-                      handleChange(e, setEntity)
-                      field.onChange(e)
-                    }}
-                  />
-                </label>
+                {field.titleTwo ? (
+                  <label>
+                    {field.titleTwo} <br />
+                    <input
+                      type="text"
+                      maxLength={50}
+                      name={field.titleTwo}
+                      onChange={(e) => {
+                        handleChange(e, setEntity)
+                        field.onChange(e)
+                      }}
+                    />
+                  </label>
+                ) : null}
               </React.Fragment>
             ))}
           </div>
@@ -185,7 +189,7 @@ export function UserForm({ fields }) {
                   <textarea
                     className="w-full resize-none rounded-lg h-[10em] p-[1rem] text-[#393939] font-normal"
                     maxLength={200}
-                    name={field.description}
+                    name={field.name}
                     placeholder="e.g.: I created and implemented educational plans based on the children's interests and curiosities."
                     onChange={(e) => field.onChange(e)}
                   />

@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
-// import { SideContent } from './sideContent'
-// import { Main } from './mainContent'
 import { Title, Contact } from './helpers'
 
 const Wrapper = styled.div`
@@ -171,11 +169,14 @@ export function ResumeTemplate({ fields }) {
             >
               <div className="flex flex-wrap gap-x-[0.5rem]">
                 <h1>{field.firstName}</h1>
+
                 <h1>{field.lastName}</h1>
               </div>
+
               <h2 className="text-[1.5rem] font-normal text-[#5f5f5f]">
                 {field.jobTitle}
               </h2>
+
               <h3
                 className="
                     text-[1rem] 
@@ -189,7 +190,7 @@ export function ResumeTemplate({ fields }) {
               </h3>
 
               <div>
-                {field.jobHistory ? (
+                {field.jobHistory.length > 0 ? (
                   <>
                     <h1 className="my-[1rem]">Experience</h1>
                     <div
@@ -208,20 +209,24 @@ export function ResumeTemplate({ fields }) {
                 ) : null}
               </div>
 
-              <h1 className="my-[1rem]">
-                {field.training.length > 0 ? 'Education' : ''}
-              </h1>
-              <div
-                className="
-                    flex 
-                    flex-col
-                    gap-[1rem]
-                    text-[#5f5f5f] 
-                    font-normal
-                    [&>div]:text-[1rem]
-                    "
-              >
-                {field.training}
+              <div>
+                {field.training.length > 0 ? (
+                  <>
+                    <h1 className="my-[1rem]">Education</h1>
+                    <div
+                      className="
+                        flex 
+                        flex-col
+                        gap-[1rem]
+                        text-[#5f5f5f] 
+                        font-normal
+                        [&>div]:text-[1rem]
+                        "
+                    >
+                      {field.training}
+                    </div>
+                  </>
+                ) : null}
               </div>
 
               <div>{field.customList}</div>

@@ -19,7 +19,11 @@ const Li = styled.li`
 `
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
-export function CustomSectionPicker({ customList, onCustomListChange }) {
+export function CustomSectionPicker({
+  customList,
+  onCustomListChange,
+  setCustomObj
+}) {
   // Predefined list of customizable sections with names and icons
   const customizableSections = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
@@ -30,6 +34,25 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
     { name: 'Practices', icon: 'fi fi-sr-trophy-star' },
     { name: 'Language', icon: 'fi fi-sr-language' }
   ]
+
+  const handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    setCustomObj((prev) => {
+      const index = prev.findIndex((obj) => obj[name] !== undefined)
+
+      if (index !== -1) {
+        // If the object with the same name exists, update its value
+        return prev.map((obj, i) =>
+          i === index ? { ...obj, [name]: value } : obj
+        )
+      } else {
+        // If the object doesn't exist, add a new one
+        return [...prev, { [name]: value }]
+      }
+    })
+  }
 
   // Function to add a section to the custom list
   const addToList = (section) => {
@@ -55,8 +78,9 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Title',
-              titleTwo: 'Entity',
-              description: 'Description'
+              titleTwo: 'City',
+              description: 'Description',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -66,8 +90,9 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Activity',
-              titleTwo: 'Entity',
-              description: 'Description'
+              titleTwo: 'Employer',
+              description: 'Description',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -77,8 +102,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Hobby',
-              titleTwo: 'Entity',
-              description: 'Description'
+              description: 'Description',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -88,7 +113,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Reference',
-              titleTwo: 'Contact'
+              titleTwo: 'Contact',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -98,7 +124,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Course',
-              titleTwo: 'Institution'
+              titleTwo: 'Institution',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -108,7 +135,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Practice',
-              titleTwo: 'Entity'
+              titleTwo: 'Entity',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />
@@ -118,7 +146,8 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
           fields={[
             {
               title: 'Language',
-              titleTwo: 'Proficiency'
+              titleTwo: 'Proficiency',
+              onChange: (e) => handleChange(e)
             }
           ]}
         />

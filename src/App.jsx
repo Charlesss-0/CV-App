@@ -1,5 +1,4 @@
 import './styles/App.css'
-// import { Form } from './components/userData/sideForm'
 import { ResumeTemplate } from './components/resume/resume'
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
@@ -61,7 +60,7 @@ const CustomSectionList = ({ section }) => {
   return (
     <li key={key} className="flex flex-col">
       {title === 'Title' ? (
-        <Editable content="Add title" />
+        <Editable content="Untitled" />
       ) : (
         <span className="text-[1.3rem] font-medium p-[0.5rem]">{title}</span>
       )}
@@ -91,7 +90,7 @@ export default function App() {
   }
 
   const store = (setEvent, arr, e) => {
-    setEvent([...arr, e.target.value])
+    setEvent([...arr, e])
   }
 
   const handleSubmit = (e, skillInput) => {
@@ -120,8 +119,40 @@ export default function App() {
   const [skillInput, setSkillInput] = useState('')
   const [skills, setSkills] = useState([])
 
-  const [inputTitle, setInputTitle] = useState([])
-  const [customEntity, setCustomEntity] = useState([])
+  // const [inputTitle, setInputTitle] = useState([])
+  const [customObj, setCustomObj] = useState([])
+
+  const handleJobChange = (e) => {
+    const { name, value } = e.target
+
+    if (name === 'Job title') {
+      store(setPrevJobPosition, prevJobPosition, value)
+    } else if (name === 'Employer') {
+      store(setPrevJobName, prevJobName, value)
+    } else if (name === 'Start date') {
+      store(setStartDate, startDate, value)
+    } else if (name === 'End date') {
+      store(setEndDate, endDate, value)
+    } else if (name === 'Job') {
+      store(setDescription, description, value)
+    }
+  }
+
+  const handleTrainingChange = (e) => {
+    const { name, value } = e.target
+
+    if (name === 'Training') {
+      store(setEntity, entity, value)
+    } else if (name === 'Qualification') {
+      store(setQualification, qualification, value)
+    } else if (name === 'Start date') {
+      store(setTrainingStart, trainingStart, value)
+    } else if (name === 'End date') {
+      store(setTrainingEnd, trainingEnd, value)
+    } else if (name === 'Description') {
+      store(setTrainingDescription, trainingDescription, value)
+    }
+  }
 
   const prevPositionsList = () => {
     return prevJobPosition.map((position, index) => {
@@ -156,14 +187,14 @@ export default function App() {
     })
   }
 
-  const custumListObj = () => {
-    return inputTitle.map((title, index) => {
-      return {
-        title: title,
-        entity: customEntity[index]
-      }
-    })
-  }
+  // const customListObj = () => {
+  //   return inputTitle.map((title, index) => {
+  //     return {
+  //       title: title,
+  //       entity: customEntity[index]
+  //     }
+  //   })
+  // }
 
   const cityCountry =
     userInput.city !== '' && userInput.country !== ''
@@ -235,24 +266,13 @@ export default function App() {
                   <UserForm
                     fields={[
                       {
+                        name: 'Job',
                         title: 'Job title',
                         titleTwo: 'Employer',
                         start: 'Start date',
                         end: 'End date',
                         description: 'Description',
-                        onChange: (e) => {
-                          if (e.target.name === 'Job title') {
-                            store(setPrevJobPosition, prevJobPosition, e)
-                          } else if (e.target.name === 'Employer') {
-                            store(setPrevJobName, prevJobName, e)
-                          } else if (e.target.name === 'Start date') {
-                            store(setStartDate, startDate, e)
-                          } else if (e.target.name === 'End date') {
-                            store(setEndDate, endDate, e)
-                          } else if (e.target.name === 'Description') {
-                            store(setDescription, description, e)
-                          }
-                        }
+                        onChange: (e) => handleJobChange(e)
                       }
                     ]}
                   />
@@ -282,23 +302,7 @@ export default function App() {
                         start: 'Start date',
                         end: 'End date',
                         description: 'Description',
-                        onChange: (e) => {
-                          if (e.target.name === 'Training') {
-                            store(setEntity, entity, e)
-                          } else if (e.target.name === 'Qualification') {
-                            store(setQualification, qualification, e)
-                          } else if (e.target.name === 'Start date') {
-                            store(setTrainingStart, trainingStart, e)
-                          } else if (e.target.name === 'End date') {
-                            store(setTrainingEnd, trainingEnd, e)
-                          } else if (e.target.name === 'Description') {
-                            store(
-                              setTrainingDescription,
-                              trainingDescription,
-                              e
-                            )
-                          }
-                        }
+                        onChange: (e) => handleTrainingChange(e)
                       }
                     ]}
                   />
@@ -386,6 +390,7 @@ export default function App() {
         <CustomSectionPicker
           customList={customList}
           onCustomListChange={handleCustomListChange}
+          setCustomObj={setCustomObj}
         />
       </div>
 
@@ -403,7 +408,7 @@ export default function App() {
             training: mapTrainingItem(prevTraining()),
             links: mapLinks(linksList()),
             skills: mapSkills(skills),
-            customList: mapCustomList(custumListObj())
+            customList: mapCustomList(customObj)
           }
         ]}
       />
@@ -454,10 +459,22 @@ function mapJobHistory(jobs) {
 function mapTrainingItem(trainings) {
   return trainings.map((training, index) => (
     <div key={index}>
-      {training.qualification && training.entity && (
+      {training.qualification && training.entity ? (
         <>
           <p className="font-semibold text-[1.1rem]">
             {training.qualification} in {training.entity} <br />
+            <span className="font-normal text-[1rem]">
+              {training.start && training.end
+                ? `${training.start} to ${training.end}`
+                : ''}
+            </span>
+          </p>
+          <p>{training.description}</p>
+        </>
+      ) : (
+        <>
+          <p className="font-semibold text-[1.1rem]">
+            {training.qualification} {training.entity} <br />
             <span className="font-normal text-[1rem]">
               {training.start && training.end
                 ? `${training.start} to ${training.end}`
@@ -491,21 +508,6 @@ function mapSkills(skills) {
 
 function mapCustomList(customList) {
   return customList.map((list, index) => {
-    const content =
-      list.title && list.entity ? (
-        <span>
-          {list.title} in {list.entity}
-        </span>
-      ) : (
-        <span>
-          {list.title} {list.entity}
-        </span>
-      )
-
-    return (
-      <p key={index} className={list.title || list.entity ? 'text-[1rem]' : ''}>
-        {content}
-      </p>
-    )
+    return <li key={index}>{list.Title}</li>
   })
 }
