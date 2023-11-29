@@ -40,7 +40,7 @@ const EditableWrapper = styled.div`
   }
 `
 
-const Editable = ({ content, onChange }) => {
+const EditableContent = ({ content, onChange }) => {
   return (
     <EditableWrapper>
       <ContentEditable
@@ -60,7 +60,7 @@ const CustomSectionList = ({ section }) => {
   return (
     <li key={key} className="flex flex-col">
       {title === 'Title' ? (
-        <Editable content="Untitled" />
+        <EditableContent content="Add title" />
       ) : (
         <span className="text-[1.3rem] font-medium p-[0.5rem]">{title}</span>
       )}
@@ -82,6 +82,7 @@ export default function App() {
     city: ''
   })
 
+  // Common handleChange function for user input
   const handleChange = (key, e) => {
     setUserInput((input) => ({
       ...input,
@@ -89,13 +90,14 @@ export default function App() {
     }))
   }
 
+  // Common store function for updating state arrays
   const store = (setEvent, arr, e) => {
     setEvent([...arr, e])
   }
 
+  // Common handleSubmit function
   const handleSubmit = (e, skillInput) => {
     e.preventDefault()
-
     if (skillInput.trim() !== '') {
       setSkills((skill) => [...skill, skillInput])
     }
@@ -119,7 +121,6 @@ export default function App() {
   const [skillInput, setSkillInput] = useState('')
   const [skills, setSkills] = useState([])
 
-  // const [inputTitle, setInputTitle] = useState([])
   const [customObj, setCustomObj] = useState([])
 
   const handleJobChange = (e) => {
@@ -154,6 +155,16 @@ export default function App() {
     }
   }
 
+  const handleLinksChange = (e) => {
+    const { name, value } = e.target
+
+    if (name === 'Label') {
+      store(setLabel, label, value)
+    } else if (name === 'URL') {
+      store(setUrl, url, value)
+    }
+  }
+
   const prevPositionsList = () => {
     return prevJobPosition.map((position, index) => {
       return {
@@ -179,22 +190,13 @@ export default function App() {
   }
 
   const linksList = () => {
-    return label.map((label, index) => {
+    return label.map((link, index) => {
       return {
-        label: label,
+        label: link,
         url: url[index]
       }
     })
   }
-
-  // const customListObj = () => {
-  //   return inputTitle.map((title, index) => {
-  //     return {
-  //       title: title,
-  //       entity: customEntity[index]
-  //     }
-  //   })
-  // }
 
   const cityCountry =
     userInput.city !== '' && userInput.country !== ''
@@ -332,13 +334,7 @@ export default function App() {
                       {
                         title: 'Label',
                         titleTwo: 'URL',
-                        onChange: (e) => {
-                          if (e.target.name === 'Label') {
-                            store(setLabel, label, e)
-                          } else if (e.target.name === 'URL') {
-                            store(setUrl, url, e)
-                          }
-                        }
+                        onChange: (e) => handleLinksChange(e)
                       }
                     ]}
                   />
