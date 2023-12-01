@@ -229,7 +229,9 @@ export function ResumeTemplate({ fields }) {
                 ) : null}
               </div>
 
-              <div>{field.customList}</div>
+              <div>
+                <ul className="text-[1.1rem]">{field.customList}</ul>
+              </div>
             </MainContent>
           ))}
         </div>

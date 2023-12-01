@@ -122,6 +122,7 @@ export default function App() {
   const [skills, setSkills] = useState([])
 
   const [customObj, setCustomObj] = useState([])
+  console.log(customObj)
 
   const handleJobChange = (e) => {
     const { name, value } = e.target
@@ -460,9 +461,7 @@ function mapTrainingItem(trainings) {
           <p className="font-semibold text-[1.1rem]">
             {training.qualification} in {training.entity} <br />
             <span className="font-normal text-[1rem]">
-              {training.start && training.end
-                ? `${training.start} to ${training.end}`
-                : ''}
+              {training.start && training.end ? `${training.start} to ${training.end}` : ''}
             </span>
           </p>
           <p>{training.description}</p>
@@ -472,9 +471,7 @@ function mapTrainingItem(trainings) {
           <p className="font-semibold text-[1.1rem]">
             {training.qualification} {training.entity} <br />
             <span className="font-normal text-[1rem]">
-              {training.start && training.end
-                ? `${training.start} to ${training.end}`
-                : ''}
+              {training.start && training.end ? `${training.start} to ${training.end}` : ''}
             </span>
           </p>
           <p>{training.description}</p>

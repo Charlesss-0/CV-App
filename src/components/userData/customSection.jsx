@@ -19,11 +19,7 @@ const Li = styled.li`
 `
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
-export function CustomSectionPicker({
-  customList,
-  onCustomListChange,
-  setCustomObj
-}) {
+export function CustomSectionPicker({ customList, onCustomListChange, setCustomObj }) {
   // Predefined list of customizable sections with names and icons
   const customizableSections = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
@@ -35,22 +31,11 @@ export function CustomSectionPicker({
     { name: 'Language', icon: 'fi fi-sr-language' }
   ]
 
-  const handleChange = (e) => {
-    const name = e.target.name
+  const handleChange = (name) => (e) => {
     const value = e.target.value
 
     setCustomObj((prev) => {
-      const index = prev.findIndex((obj) => obj[name] !== undefined)
-
-      if (index !== -1) {
-        // If the object with the same name exists, update its value
-        return prev.map((obj, i) =>
-          i === index ? { ...obj, [name]: value } : obj
-        )
-      } else {
-        // If the object doesn't exist, add a new one
-        return [...prev, { [name]: value }]
-      }
+      return new Map(prev).set(name, value)
     })
   }
 
@@ -69,89 +54,32 @@ export function CustomSectionPicker({
     onCustomListChange(updatedList)
   }
 
+  const createUserForm = (title, titleTwo, onChange) => {
+    return (
+      <UserForm
+        fields={[
+          {
+            title,
+            titleTwo,
+            description: 'Description',
+            onChange
+          }
+        ]}
+      />
+    )
+  }
+
   // Function to get the component based on the provided icon
   const getComponent = (icon) => {
     // Mapping of icons to UserForm components with predefined fields
     const componentMap = {
-      'fi fi-sr-settings-sliders': (
-        <UserForm
-          fields={[
-            {
-              title: 'Title',
-              titleTwo: 'City',
-              description: 'Description',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-seedling': (
-        <UserForm
-          fields={[
-            {
-              title: 'Activity',
-              titleTwo: 'Employer',
-              description: 'Description',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-puzzle-alt': (
-        <UserForm
-          fields={[
-            {
-              title: 'Hobby',
-              description: 'Description',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-person-circle-check': (
-        <UserForm
-          fields={[
-            {
-              title: 'Reference',
-              titleTwo: 'Contact',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-book-copy': (
-        <UserForm
-          fields={[
-            {
-              title: 'Course',
-              titleTwo: 'Institution',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-trophy-star': (
-        <UserForm
-          fields={[
-            {
-              title: 'Practice',
-              titleTwo: 'Entity',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      ),
-      'fi fi-sr-language': (
-        <UserForm
-          fields={[
-            {
-              title: 'Language',
-              titleTwo: 'Proficiency',
-              onChange: (e) => handleChange(e)
-            }
-          ]}
-        />
-      )
+      'fi fi-sr-settings-sliders': createUserForm('Title', 'City', handleChange),
+      'fi fi-sr-seedling': createUserForm('Activity', 'Employer', handleChange),
+      'fi fi-sr-puzzle-alt': createUserForm('Hobby', null, handleChange),
+      'fi fi-sr-person-circle-check': createUserForm('Reference, contact', handleChange),
+      'fi fi-sr-book-copy': createUserForm('Course', 'Institution', handleChange),
+      'fi fi-sr-trophy-star': createUserForm('Practice', 'Entity', handleChange),
+      'fi fi-sr-language': createUserForm('Language', 'Proficiency', handleChange)
     }
 
     // Return the component based on the provided icon
