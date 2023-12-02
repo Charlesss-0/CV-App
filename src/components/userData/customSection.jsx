@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import { UserForm } from './form'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 // Styled component for custom list item
 const Li = styled.li`
@@ -19,7 +20,7 @@ const Li = styled.li`
 `
 
 // CustomSectionPicker component renders a list of customizable sections that can be added.
-export function CustomSectionPicker({ customList, onCustomListChange, setCustomObj }) {
+export function CustomSectionPicker({ customList, onCustomListChange }) {
   // Predefined list of customizable sections with names and icons
   const customizableSections = [
     { name: 'Custom section', icon: 'fi fi-sr-settings-sliders' },
@@ -31,12 +32,72 @@ export function CustomSectionPicker({ customList, onCustomListChange, setCustomO
     { name: 'Language', icon: 'fi fi-sr-language' }
   ]
 
-  const handleChange = (name) => (e) => {
-    const value = e.target.value
+  const [customTitle, setCustomTitle] = useState([])
+  const [customCity, setCustomCity] = useState([])
+  const [customActivity, setCustomActivity] = useState([])
+  const [customEmployer, setCustomEmployer] = useState([])
+  const [customHobby, setCustomHobby] = useState([])
+  const [customReference, setCustomReference] = useState([])
+  const [customContact, setCustomContact] = useState([])
+  const [customCourse, setCustomCourse] = useState([])
+  const [customInstitution, setCustomInstitution] = useState([])
+  const [customPractice, setCustomPractice] = useState([])
+  const [customEntity, setCustomEntity] = useState([])
+  const [customLanguage, setCustomLanguage] = useState([])
+  const [customProficiency, setCustomProficiency] = useState([])
+  const [description, setDescription] = useState([])
 
-    setCustomObj((prev) => {
-      return new Map(prev).set(name, value)
-    })
+  const store = (setEvent, arr, e) => {
+    setEvent([...arr, e])
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+
+    switch (name) {
+      case 'Title':
+        store(setCustomTitle, customTitle, value)
+        break
+      case 'City':
+        store(setCustomCity, customCity, value)
+        break
+      case 'Activity':
+        store(setCustomActivity, customActivity, value)
+        break
+      case 'Employer':
+        store(setCustomEmployer, customEmployer, value)
+        break
+      case 'Hobby':
+        store(setCustomHobby, customHobby, value)
+        break
+      case 'Reference':
+        store(setCustomReference, customReference, value)
+        break
+      case 'Contact':
+        store(setCustomContact, customContact, value)
+        break
+      case 'Course':
+        store(setCustomCourse, customCourse, value)
+        break
+      case 'Institution':
+        store(setCustomInstitution, customInstitution, value)
+        break
+      case 'Practice':
+        store(setCustomPractice, customPractice, value)
+        break
+      case 'Entity':
+        store(setCustomEntity, customEntity, value)
+        break
+      case 'Language':
+        store(setCustomLanguage, customLanguage, value)
+        break
+      case 'Proficiency':
+        store(setCustomProficiency, customProficiency, value)
+        break
+      case 'Description':
+        store(setDescription, description, value)
+        break
+    }
   }
 
   // Function to add a section to the custom list
@@ -86,7 +147,7 @@ export function CustomSectionPicker({ customList, onCustomListChange, setCustomO
     return componentMap[icon]
   }
 
-  // JSX for rendering the list of customizable sections
+  // JSX for rendering the options for customizable sections
   return (
     <ul className="flex flex-wrap gap-[1rem] mt-[1.5rem]">
       {customizableSections.map((section) => (

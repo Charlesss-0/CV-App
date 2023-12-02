@@ -122,7 +122,6 @@ export default function App() {
   const [skills, setSkills] = useState([])
 
   const [customObj, setCustomObj] = useState([])
-  console.log(customObj)
 
   const handleJobChange = (e) => {
     const { name, value } = e.target
