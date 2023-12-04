@@ -32,72 +32,55 @@ export function CustomSectionPicker({ customList, onCustomListChange }) {
     { name: 'Language', icon: 'fi fi-sr-language' }
   ]
 
-  const [customTitle, setCustomTitle] = useState([])
-  const [customCity, setCustomCity] = useState([])
-  const [customActivity, setCustomActivity] = useState([])
-  const [customEmployer, setCustomEmployer] = useState([])
-  const [customHobby, setCustomHobby] = useState([])
-  const [customReference, setCustomReference] = useState([])
-  const [customContact, setCustomContact] = useState([])
-  const [customCourse, setCustomCourse] = useState([])
-  const [customInstitution, setCustomInstitution] = useState([])
-  const [customPractice, setCustomPractice] = useState([])
-  const [customEntity, setCustomEntity] = useState([])
-  const [customLanguage, setCustomLanguage] = useState([])
-  const [customProficiency, setCustomProficiency] = useState([])
-  const [description, setDescription] = useState([])
+  const [customInput, setCustomInput] = useState({
+    'title': [],
+    'city': [],
+    'activity': [],
+    'employer': [],
+    'hobby': [],
+    'reference': [],
+    'contact': [],
+    'course': [],
+    'institution': [],
+    'practice': [],
+    'entity': [],
+    'language': [],
+    'proficiency': [],
+    'description': []
+  })
+  console.log(customInput)
 
-  const store = (setEvent, arr, e) => {
-    setEvent([...arr, e])
+  const stateSetters = [
+    {
+      'Title': setCustomInput.title,
+      'City': setCustomInput.city,
+      'Activity': setCustomInput.activity,
+      'Employer': setCustomInput.employer,
+      'Hobby': setCustomInput.hobby,
+      'Reference': setCustomInput.reference,
+      'Contact': setCustomInput.contact,
+      'Course': setCustomInput.course,
+      'Institution': setCustomInput.institution,
+      'Practice': setCustomInput.practice,
+      'Entity': setCustomInput.entity,
+      'Language': setCustomInput.language,
+      'Proficiency': setCustomInput.proficiency,
+      'Description': setCustomInput.description
+    }
+  ]
+
+  const setEvent = (setState, e) => {
+    const { name, value } = e.target
+
+    setState((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name } = e.target
 
-    switch (name) {
-      case 'Title':
-        store(setCustomTitle, customTitle, value)
-        break
-      case 'City':
-        store(setCustomCity, customCity, value)
-        break
-      case 'Activity':
-        store(setCustomActivity, customActivity, value)
-        break
-      case 'Employer':
-        store(setCustomEmployer, customEmployer, value)
-        break
-      case 'Hobby':
-        store(setCustomHobby, customHobby, value)
-        break
-      case 'Reference':
-        store(setCustomReference, customReference, value)
-        break
-      case 'Contact':
-        store(setCustomContact, customContact, value)
-        break
-      case 'Course':
-        store(setCustomCourse, customCourse, value)
-        break
-      case 'Institution':
-        store(setCustomInstitution, customInstitution, value)
-        break
-      case 'Practice':
-        store(setCustomPractice, customPractice, value)
-        break
-      case 'Entity':
-        store(setCustomEntity, customEntity, value)
-        break
-      case 'Language':
-        store(setCustomLanguage, customLanguage, value)
-        break
-      case 'Proficiency':
-        store(setCustomProficiency, customProficiency, value)
-        break
-      case 'Description':
-        store(setDescription, description, value)
-        break
-    }
+    const setState = stateSetters[name]
+
+    setEvent(setState, e)
   }
 
   // Function to add a section to the custom list

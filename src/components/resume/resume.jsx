@@ -104,27 +104,17 @@ export function ResumeTemplate({ fields }) {
                   </>
                 )}
 
-                {selectedFileName && (
-                  <img src={URL.createObjectURL(selectedFileName)} />
-                )}
+                {selectedFileName && <img src={URL.createObjectURL(selectedFileName)} />}
               </Image>
 
-              {field.email || field.phone || field.cityCountry ? (
-                <Title text={'Contact'} />
-              ) : null}
+              {field.email || field.phone || field.cityCountry ? <Title text={'Contact'} /> : null}
 
               <div className="w-full p-[1rem] flex flex-col gap-1">
                 {fields.map((field, index) => (
                   <React.Fragment key={index}>
-                    {field.email && (
-                      <Contact type={'email'} info={field.email} />
-                    )}
-                    {field.phone && (
-                      <Contact type={'phone'} info={field.phone} />
-                    )}
-                    {field.cityCountry && (
-                      <Contact type={'nationality'} info={field.cityCountry} />
-                    )}
+                    {field.email && <Contact type={'email'} info={field.email} />}
+                    {field.phone && <Contact type={'phone'} info={field.phone} />}
+                    {field.cityCountry && <Contact type={'nationality'} info={field.cityCountry} />}
                   </React.Fragment>
                 ))}
               </div>
@@ -143,9 +133,7 @@ export function ResumeTemplate({ fields }) {
                   {field.links.length > 0 ? (
                     <>
                       <Title text={'Links'} />
-                      <div className="px-[0.8rem] flex flex-col">
-                        {field.links}
-                      </div>
+                      <div className="px-[0.8rem] flex flex-col">{field.links}</div>
                     </>
                   ) : null}
                 </React.Fragment>
@@ -173,9 +161,7 @@ export function ResumeTemplate({ fields }) {
                 <h1>{field.lastName}</h1>
               </div>
 
-              <h2 className="text-[1.5rem] font-normal text-[#5f5f5f]">
-                {field.jobTitle}
-              </h2>
+              <h2 className="text-[1.5rem] font-normal text-[#5f5f5f]">{field.jobTitle}</h2>
 
               <h3
                 className="
